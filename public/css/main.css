@@ -1,0 +1,134 @@
+:root{
+  --main-white: #fafafa;
+  --lighter-gray: #eeeeee;
+  --light-gray: #e0e0e0;
+  --main-black: #212121;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, 
+body{
+  width: 100%;
+}
+body{
+  background-color: var(--lighter-gray);
+  color: var(--main-black);
+}
+#main-content{
+  margin-top: 70px;
+  padding: 0;
+}
+/* welcome page */
+#welcome-page{
+  background-color: var(--main-white);
+  padding: 1rem;
+}
+#welcome-page p{
+  text-align: center;
+}
+/* end welcome page */
+
+/* choose chat */
+#choose-chat{
+  padding: 0 1rem;
+}
+#choose-chat p{
+  margin: 0;
+}
+#choose-chat p a{
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--main-black);
+}
+#choose-hr{
+  margin: .25rem;
+}
+/* end choose chat */
+
+/* chat styles */
+#bottom-window::before{
+  margin: 0rem;
+  content:"";
+  display: block;
+}
+.leave-btn{
+  text-decoration: none;
+  color: var(--main-white);
+}
+.leave-btn:active{
+  text-decoration: none;
+}
+#chat-window{
+  height: 385px;
+  overflow-y: auto;
+  position: relative;
+}
+#output p{
+  padding: 2px 0px;
+  border-bottom: 1px solid #e9e9e9;
+  color: #555;
+}
+#room-name{
+  text-align: center;
+  text-transform: uppercase;
+}
+#output{
+  padding: .5rem;
+  width: 100%;
+  margin: 0 auto;
+}
+#chat-input{
+  margin-bottom: 2.5rem;
+  padding: 0;
+}
+.para-msg::after{
+  display: block;
+}
+span.msg{
+  background: var(--main-white);
+  padding: .25rem .5rem;
+  margin: 10px 0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .15);
+}
+span.chat-name{
+  background: var(--main-white);
+  padding: .25rem .5rem;
+  margin: 10px 0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .15);
+}
+#message-input{
+  padding-left: .5rem;
+}
+/* end chat styles */
+/* login and register */
+.btn-para{
+  text-align: right;
+}
+/* end login and register */
+/* forms */
+form{
+  background-color: var(--main-white);
+  padding: 1rem 0;
+  width: 60% !important;
+}
+/* end forms */
+/* footer */
+footer{
+  text-align: center;
+  background-color: var(--main-white)
+}
+/* end footer */
+/* media 415px */
+@media only screen and (max-width: 768px){
+  form{
+    width: 100% !important;
+  }
+}
+/* end media 415px */
+
+

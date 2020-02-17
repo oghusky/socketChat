@@ -49,6 +49,9 @@ body{
 /* end choose chat */
 
 /* chat styles */
+#user-image{
+  display: none;
+}
 #bottom-window::before{
   margin: 0rem;
   content:"";
@@ -86,6 +89,11 @@ body{
 }
 .para-msg::after{
   display: block;
+}
+.para-msg img{
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
 }
 span.msg{
   background: var(--main-white);

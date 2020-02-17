@@ -1,4 +1,7 @@
 <section id="chat-box">
+  <div>
+    <span id="user-image"><%= user.userimgname %></span>
+  </div>
   <h4 id="room-name"><%= roomName %> <span id="room-count"></span></h3>
     <p class="text-center"><button class="btn btn-success"><a href="/chat" class="leave-btn">LEAVE</a></button></p>
     <%-include("../partials/chatroom") -%>

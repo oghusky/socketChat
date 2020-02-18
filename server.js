@@ -99,5 +99,13 @@ io
         .of("/mainspace")
         .to(roomName)
         .emit("shift-doc", data);
-    })
+    });
+    socket.on("disconnect", (roomName, data) => {
+      const i = userId.indexOf(socket);
+      userId.splice(i, 1);
+      io
+        .of("/mainspace")
+        .to(roomName)
+        .emit("left-room", data);
+    });
   });

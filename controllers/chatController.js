@@ -12,9 +12,11 @@ const chatRooms = [
 
 const chatController = {
   index: async (req, res) => {
+    let users = [];
     let roomName = req.params.roomName;
+    users.push(req.user);
     if (chatRooms.includes(roomName)) {
-      res.render("user/chat", { roomName: req.params.roomName, user: req.user });
+      res.render("user/chat", { roomName: req.params.roomName, user: req.user, users });
     } else {
       res.status(302).redirect("/");
     }

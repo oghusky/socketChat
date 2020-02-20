@@ -49,6 +49,43 @@ body{
 /* end choose chat */
 
 /* chat styles */
+.message-div{
+  position: relative;
+  display: block;
+  margin: .5rem 0;
+}
+.message-wrap{
+  /* position: absolute; */
+}
+.msg-inline-wrap{
+  display: flex;
+}
+.msg-img-wrap{
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.msg-img{
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+}
+.msg-para-div{
+  padding: .5rem .5rem;
+  background-color: var(--main-white);
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .15);
+}
+div.msg-para-div p{
+  line-height: 16px;
+  padding: 0;
+  font-size: 1.2rem;
+}
+.msg-para-div > p{
+  margin: 0;
+  padding: 0;
+}
 #user-image{
   display: none;
 }
@@ -57,22 +94,17 @@ body{
   content:"";
   display: block;
 }
-.leave-btn{
+#leave-btn{
   text-decoration: none;
   color: var(--main-white);
 }
-.leave-btn:active{
+#leave-btn:active{
   text-decoration: none;
 }
 #chat-window{
   height: 385px;
   overflow-y: auto;
   position: relative;
-}
-#output p{
-  padding: 2px 0px;
-  border-bottom: 1px solid #e9e9e9;
-  color: #555;
 }
 #room-name{
   text-align: center;
@@ -100,7 +132,6 @@ span.msg{
   padding: .25rem .5rem;
   margin: 10px 0;
   border-radius: 2px;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .15);
 }
 span.chat-name{
   background: var(--main-white);

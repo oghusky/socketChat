@@ -63,41 +63,65 @@ const server = app.listen(3000, () => {
 // socket setup
 const io = socket(server);
 let userId = [];
-
-
-
+function Chatter(name, img, age, gender, socketid) {
+  this.name = name;
+  this.img = img;
+  this.age = age;
+  this.gender = gender;
+  this.socketid = socketid;
+}
+let socketname;
+let userCount = 0;
 io
   // specifies main namespace
   .of("/mainspace")
   // what to do on connection
-  .on("connection", (socket) => {
+  .on("connection", (socket, path) => {
     // what to do when user joins room
     socket.on("joinRoom", (roomName, username, userage, userimg, usergender) => {
       // join room socket action
       socket.join(roomName);
-      userId.push(socket.id);
+      // const socketid = socket.id;
+      userId.push(username);
+      const userMap = [...new Set(userId)]
       // when user joins room in /mainspace
       io
         // specifies what to do when new user joins room in name space
         .of("/mainspace")
         .in(roomName)
         // emit this message
-        .emit("newChatter", userId.length, username, userage, userimg, usergender);
+        .emit("newChatter", userId.length, username, userage, userimg, usergender, userMap);
     });
     // on message grab roomName and message
-    socket.on("message", (roomName, message, username) => {
+    socket.on("message", (roomName, message, username, userimg) => {
       // have to specify mainspace
       // have to specify room 
       // and grab message
       io
         .of("/mainspace")
         .to(roomName)
-        .emit("chat-message", message, username);
+        .emit("chat-message", message, username, userimg, userId);
+      console.log(userId);
     });
     socket.on("doc-change", (roomName, data) => {
       io
         .of("/mainspace")
         .to(roomName)
-        .emit("shift-doc", data);
-    })
+        .emit("shift-doc", data, userId);
+    });
+    socket.on("disconnected", (roomName) => {
+      const i = userId.indexOf(socket);
+      userId.splice(i, 1);
+      socket.leave(roomName);
+      io
+        .of("/mainspace")
+        .to(roomName)
+        .emit("left-room", userId);
+    });
+    socket.on("private-message", (username, message) => {
+      io
+        .of("/mainspace")
+        .to(username)
+        .emit("direct-message", message, userId);
+    });
   });

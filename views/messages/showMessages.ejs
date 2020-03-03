@@ -1,0 +1,6 @@
+<div class="container">
+  <%mail.reverse().map(msg=>{%>
+  <p>From: <%=msg.sender.username%></p>
+  <p><%=msg.messageBody%></p>
+  <%})%>
+</div>

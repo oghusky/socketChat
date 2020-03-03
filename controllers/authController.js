@@ -12,6 +12,8 @@ const authController = {
     res.render("auth/login", { path: "/login", user: req.user });
   },
   postRegister: async (req, res) => {
+    const userimg = req.files.userimg;
+    const userimgname = userimg.name;
     const { username, name, email, password, password2 } = req.body;
     let errors = [];
     let errCheck = (errors.length > 0 ? errors : '');
@@ -41,8 +43,9 @@ const authController = {
             });
           } else {
             const newUser = new User({
-              username, name, email, password
+              userimgname, username, name, email, password
             });
+            req.files.userimg.mv(`./public/images/${userimgname}`)
             bcrypt.genSalt(10, (err, salt) => {
               bcrypt.hash(newUser.password, salt, (err, hash) => {
                 if (err) throw err;

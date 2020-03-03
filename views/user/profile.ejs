@@ -1,6 +1,7 @@
 <section id="user-profile" class="container">
+  <span id="user-image"><%= user.userimgname %></span>
   <div class="container-fluid">
-    <img src="<%= user.avatar %>" alt="<%= user.username %>" class="img-fluid">
+    <img src="/images/<%= user.userimgname %>" alt="<%= user.username %>" class="img-fluid" id="user-pro-image">
   </div>
   <div class="user-info">
     <h3><%= user.name %></h3>

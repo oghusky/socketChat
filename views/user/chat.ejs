@@ -1,6 +1,9 @@
 <section id="chat-box">
+  <div>
+    <span id="user-image"><%= user.userimgname %></span>
+  </div>
   <h4 id="room-name"><%= roomName %> <span id="room-count"></span></h3>
-    <p class="text-center"><button class="btn btn-success"><a href="/chat" class="leave-btn">LEAVE</a></button></p>
+    <p class="text-center"><button class="btn btn-success"><a href="/chat" id="leave-btn">LEAVE</a></button></p>
     <%-include("../partials/chatroom") -%>
     <div id="chat-input" class="d-flex fixed-bottom container">
       <input type="text" placeholder="Enter a message..." id="message-input" class="flex-grow-1" />

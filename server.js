@@ -7,6 +7,7 @@ const express = require("express"),
   app = express(),
   socket = require("socket.io"),
   expressLayouts = require("express-ejs-layouts"),
+  upload = require("express-fileupload"),
   mongoose = require("mongoose"),
   passport = require("passport"),
   session = require('express-session');
@@ -22,6 +23,9 @@ mongoose.connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopolo
 // ejs setup
 app.use(expressLayouts);
 app.set("view engine", "ejs");
+
+// express fileupload
+app.use(upload());
 
 // express middleware
 app.use(express.urlencoded({ extended: true }));
@@ -59,62 +63,66 @@ const server = app.listen(3000, () => {
 // socket setup
 const io = socket(server);
 let userId = [];
-let numUsers = 0;
-
+function Chatter(name, img, age, gender, socketid) {
+  this.name = name;
+  this.img = img;
+  this.age = age;
+  this.gender = gender;
+  this.socketid = socketid;
+}
+let socketname;
+let userCount = 0;
 io
   // specifies main namespace
   .of("/mainspace")
   // what to do on connection
-  .on("connection", (socket) => {
-    // console.log("Socket handshake: ",socket.handshake);
-    // console.log("socket listener count: ", socket.listenerCount);
-    // console.log("socket client: ", socket.client);
-    // console.log("socket nsp(name space): ", socket.nsp);
-    // console.log("socket rooms:", socket.rooms);
-    // console.log("socket json: ", socket.json);
-    let addUser = false;
+  .on("connection", (socket, path) => {
     // what to do when user joins room
     socket.on("joinRoom", (roomName, username, userage, userimg, usergender) => {
       // join room socket action
-      // room name is grabbed in browser js
-      // console.log("socket rooms:", socket.rooms);
-      // console.log("socket nsp(name space): ", socket.nsp);
-      // console.log("socket request: ", socket.request);
       socket.join(roomName);
-      userId.push(socket.id);
+      // const socketid = socket.id;
+      userId.push(username);
+      const userMap = [...new Set(userId)]
       // when user joins room in /mainspace
       io
         // specifies what to do when new user joins room in name space
         .of("/mainspace")
         .in(roomName)
         // emit this message
-        .emit("newChatter", userId.length, username, userage, userimg, usergender);
+        .emit("newChatter", userId.length, username, userage, userimg, usergender, userMap);
+      console.log(userMap);
     });
     // on message grab roomName and message
-    socket.on("message", (roomName, message, username) => {
+    socket.on("message", (roomName, message, username, userimg) => {
       // have to specify mainspace
       // have to specify room 
       // and grab message
       io
         .of("/mainspace")
         .to(roomName)
-        .emit("chat-message", message, username);
-      // console.log(socket.handshake);
-    });
-    socket.on("disconnect", (roomName) => {
-      const i = userId.indexOf(socket);
-      console.log("got disconnected")
-      socket.leave(roomName);
-      userId.splice(i, 1);
-      io
-        // .of("/mainframe")
-        .to(roomName)
-        .emit("left-room", "chicken");
+        .emit("chat-message", message, username, userimg, userId);
     });
     socket.on("doc-change", (roomName, data) => {
       io
-        // .of("/mainspace")
+        .of("/mainspace")
         .to(roomName)
-        .emit("shift-doc", data);
-    })
+        .emit("shift-doc", data, userId);
+    });
+    socket.on("disconnected", (roomName, username) => {
+      // const userMap = [...new Set(userId)]
+      const i = userId.indexOf(username);
+      userId.splice(i, 1);
+      socket.leave(roomName);
+      io
+        .of("/mainspace")
+        .to(roomName)
+        .emit("left-room", userId);
+    });
+    socket.on("private-message", (username, message) => {
+      io
+        .of("/mainspace")
+        .to(username)
+        .emit("direct-message", message, userId);
+    });
   });

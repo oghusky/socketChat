@@ -20,7 +20,17 @@ const messageSchema = new mongoose.Schema({
     username: String
   },
   messageBody: {
-    type: String
+    type: String,
+  },
+  replies: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Reply"
+    }
+  ],
+  created: {
+    type: Date,
+    default: Date.now()
   }
 });
 

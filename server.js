@@ -50,11 +50,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 const authRoute = require("./routes/authRouter");
 const chatRoute = require("./routes/chatRouter");
 const userRoute = require("./routes/userRouter");
+const messageRoute = require("./routes/messageRouter");
 
 // use routes
 app.use("/", authRoute);
 app.use("/chat", chatRoute);
 app.use("/user", userRoute);
+app.use("/messages", messageRoute);
 // Listening
 const server = app.listen(3000, () => {
   console.log("Server started on 3000");

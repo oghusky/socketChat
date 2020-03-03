@@ -2,5 +2,8 @@
   <%mail.reverse().map(msg=>{%>
   <p>From: <%=msg.sender.username%></p>
   <p><%=msg.messageBody%></p>
+  <%if(user) {%>
+  <a class="btn btn-outline-success" href="/messages/reply/<%= msg._id %>"> REPLY</a>
+  <%}%>
   <%})%>
 </div>

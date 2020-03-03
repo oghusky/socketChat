@@ -1,4 +1,5 @@
 const User = require("../models/User"),
+  Reply = require("../models/Reply"),
   Messages = require("../models/Messages");
 
 
@@ -31,12 +32,30 @@ exports.postMessage = async (req, res) => {
     const newMessage = new Messages({ sender, recipient, messageBody });
     await newMessage.save();
     recipient.messages.push(newMessage);
-    // await recipient.save();
+    await recipient.save();
     res.status(201).redirect(`/messages/${req.params.id}`);
   } catch (err) {
     if (err) throw err;
   }
-
+}
+exports.getReplyForm = async (req, res) => {
+  try {
+    const message = await Messages.findById(req.params.id);
+    res.status(200).render("messages/replyMessage", { message, user: req.user })
+  } catch (err) {
+    throw err
+  }
+}
+exports.postReply = async (req, res) => {
+  const { replyBody } = req.body;
+  const newReply = new Reply({ replyBody });
+  newReply.save();
+  // grab current message
+  const message = await Messages.findById(req.params.id);
+  // push reply to replies array
+  message.replies.push(newReply);
+  // then save reply
+  message.save();
 }
 exports.deleteMessage = (req, res) => {
 

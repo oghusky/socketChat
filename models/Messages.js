@@ -22,6 +22,12 @@ const messageSchema = new mongoose.Schema({
   messageBody: {
     type: String,
   },
+  replies: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Reply"
+    }
+  ],
   created: {
     type: Date,
     default: Date.now()

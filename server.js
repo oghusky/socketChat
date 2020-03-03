@@ -91,6 +91,7 @@ io
         .in(roomName)
         // emit this message
         .emit("newChatter", userId.length, username, userage, userimg, usergender, userMap);
+      console.log(userMap);
     });
     // on message grab roomName and message
     socket.on("message", (roomName, message, username, userimg) => {
@@ -101,7 +102,6 @@ io
         .of("/mainspace")
         .to(roomName)
         .emit("chat-message", message, username, userimg, userId);
-      console.log(userId);
     });
     socket.on("doc-change", (roomName, data) => {
       io
@@ -109,8 +109,9 @@ io
         .to(roomName)
         .emit("shift-doc", data, userId);
     });
-    socket.on("disconnected", (roomName) => {
-      const i = userId.indexOf(socket);
+    socket.on("disconnected", (roomName, username) => {
+      // const userMap = [...new Set(userId)]
+      const i = userId.indexOf(username);
       userId.splice(i, 1);
       socket.leave(roomName);
       io

@@ -41,7 +41,9 @@ exports.postMessage = async (req, res) => {
 exports.getReplyForm = async (req, res) => {
   try {
     const message = await Messages.findById(req.params.id);
-    res.status(200).render("messages/replyMessage", { message, user: req.user })
+    const replies = await Reply.find({ _id: message.replies });
+    res.status(200).render("messages/replyMessage", { replies, message, user: req.user })
+    console.log(replies);
   } catch (err) {
     throw err
   }
@@ -56,6 +58,7 @@ exports.postReply = async (req, res) => {
   message.replies.push(newReply);
   // then save reply
   message.save();
+  res.status(201).redirect(`/messages/${req.params.id}`);
 }
 exports.deleteMessage = (req, res) => {
 

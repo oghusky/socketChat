@@ -54,9 +54,6 @@ body{
   display: block;
   margin: .5rem 0;
 }
-.message-wrap{
-  /* position: absolute; */
-}
 .msg-inline-wrap{
   display: flex;
 }
@@ -144,6 +141,13 @@ span.chat-name{
   padding-left: .5rem;
 }
 /* end chat styles */
+
+/* replies */
+#replies-div{
+  margin: 0 auto;
+}
+/* end replies */
+
 /* login and register */
 .btn-para{
   text-align: right;

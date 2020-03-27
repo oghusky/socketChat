@@ -2,7 +2,7 @@ Changes
 ---
 - 
 
-Image / Gif
+Images / Gifs
 ---
 
 Additional Notes

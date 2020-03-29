@@ -50,11 +50,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 const authRoute = require("./routes/authRouter");
 const chatRoute = require("./routes/chatRouter");
 const userRoute = require("./routes/userRouter");
+const messageRoute = require("./routes/messageRouter");
 
 // use routes
 app.use("/", authRoute);
 app.use("/chat", chatRoute);
 app.use("/user", userRoute);
+app.use("/messages", messageRoute);
+
 // Listening
 const server = app.listen(3000, () => {
   console.log("Server started on 3000");
@@ -91,6 +94,7 @@ io
         .in(roomName)
         // emit this message
         .emit("newChatter", userId.length, username, userage, userimg, usergender, userMap);
+      console.log(userMap);
     });
     // on message grab roomName and message
     socket.on("message", (roomName, message, username, userimg) => {
@@ -101,7 +105,6 @@ io
         .of("/mainspace")
         .to(roomName)
         .emit("chat-message", message, username, userimg, userId);
-      console.log(userId);
     });
     socket.on("doc-change", (roomName, data) => {
       io
@@ -109,8 +112,9 @@ io
         .to(roomName)
         .emit("shift-doc", data, userId);
     });
-    socket.on("disconnected", (roomName) => {
-      const i = userId.indexOf(socket);
+    socket.on("disconnected", (roomName, username) => {
+      // const userMap = [...new Set(userId)]
+      const i = userId.indexOf(username);
       userId.splice(i, 1);
       socket.leave(roomName);
       io

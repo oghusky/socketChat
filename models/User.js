@@ -37,6 +37,12 @@ const userSchema = new mongoose.Schema({
     data: Buffer,
     type: String,
     default: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png"
-  }
+  },
+  messages: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Messages"
+    }
+  ]
 });
 module.exports = mongoose.model("User", userSchema);

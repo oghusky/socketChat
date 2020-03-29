@@ -58,9 +58,11 @@ app.use("/chat", chatRoute);
 app.use("/user", userRoute);
 app.use("/messages", messageRoute);
 
+// PORT
+const PORT = process.env.PORT || 3000;
 // Listening
-const server = app.listen(3000, () => {
-  console.log("Server started on 3000");
+const server = app.listen(PORT, () => {
+  console.log("Server started");
 });
 
 // socket setup

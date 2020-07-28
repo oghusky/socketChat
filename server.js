@@ -62,7 +62,7 @@ app.use("/messages", messageRoute);
 const PORT = process.env.PORT || 3000;
 // Listening
 const server = app.listen(PORT, () => {
-  console.log("Server started");
+  console.log("Server started on port: " + PORT);
 });
 
 // socket setup
@@ -75,8 +75,7 @@ function Chatter(name, img, age, gender, socketid) {
   this.gender = gender;
   this.socketid = socketid;
 }
-let socketname;
-let userCount = 0;
+
 io
   // specifies main namespace
   .of("/mainspace")
@@ -96,7 +95,6 @@ io
         .in(roomName)
         // emit this message
         .emit("newChatter", userId.length, username, userage, userimg, usergender, userMap);
-      console.log(userMap);
     });
     // on message grab roomName and message
     socket.on("message", (roomName, message, username, userimg) => {

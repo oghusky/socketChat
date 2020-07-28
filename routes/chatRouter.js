@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const chatController = require("../controllers/chatController");
+const { index, chooseChat } = require("../controllers/chatController");
 const { ensureAuth } = require("../config/auth");
 
 router
   .route("/")
-  .get(ensureAuth, chatController.chooseChat)
+  .get(ensureAuth, chooseChat)
 router
   .route("/:roomName")
-  .get(ensureAuth, chatController.index);
+  .get(ensureAuth, index);
 
 module.exports = router;

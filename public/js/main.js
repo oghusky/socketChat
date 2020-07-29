@@ -45,7 +45,6 @@ if (splitPath.includes("chat")) {
     chatWindow.scrollTop = bottomChat.getBoundingClientRect().top;
   });
   socket.on("chat-message", (message, user, img) => {
-    console.log(img.split("_"));
     if (user === userName) {
       output.innerHTML += `
     <div class="message-div clearfix">

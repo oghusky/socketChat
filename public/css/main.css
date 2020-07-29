@@ -14,8 +14,12 @@ body{
   width: 100%;
 }
 body{
-  background-color: var(--lighter-gray);
+  background-color: var(--main-white);
   color: var(--main-black);
+}
+/* all btn classes */
+.btn{
+  border-radius: 0 !important;
 }
 /* navbar */
 nav.navbar{
@@ -112,13 +116,16 @@ div.msg-para-div p{
   text-decoration: none;
 }
 #chat-window{
-  height: 385px;
+  height: 80vh;
   overflow-y: auto;
   position: relative;
+  background-color: var(--lighter-gray);
 }
 #room-name{
   text-align: center;
   text-transform: uppercase;
+  padding-top: 1rem;
+  margin-top: -2rem;
 }
 #output{
   padding: .5rem;
@@ -172,12 +179,22 @@ footer{
   background-color: var(--main-white)
 }
 /* end footer */
-/* media 415px */
+/* media 768px */
 @media only screen and (max-width: 768px){
   form{
     width: 100% !important;
   }
 }
-/* end media 415px */
+/* end media 768px */
+/* media 414px */
+@media only screen and (max-width: 414px){
+  #room-name{
+    font-size: 1.1rem;
+  }
+  #chat-window{
+    height: 67vh;
+  }
+}
+/* end media 414px */
 
 

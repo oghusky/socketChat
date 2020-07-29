@@ -23,7 +23,11 @@ exports.index = async (req, res) => {
     let roomName = req.params.roomName;
     users.push(req.user);
     if (chatRooms.includes(roomName.toLowerCase())) {
-      res.render("user/chat", { roomName: req.params.roomName, user: req.user, users });
+      res.render("user/chat", {
+        roomName: req.params.roomName,
+        user: req.user, users,
+        path: "/chat"
+      });
     }
   } catch (err) {
     console.log(err);
@@ -32,5 +36,9 @@ exports.index = async (req, res) => {
   exports.chooseChat = async (req, res) => {
 
     req.headers["chat-user"] = `${req.user}`;
-    res.render("user/chooseChat", { chatRooms, user: req.user, roomName: req.params.roomName });
+    res.render("user/chooseChat", {
+      chatRooms, user: req.user,
+      roomName: req.params.roomName,
+      path: "/chat"
+    });
   }

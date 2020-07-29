@@ -2,8 +2,40 @@
 const pathname = window.location.pathname;
 const splitPath = pathname.split("/");
 
-// 
-// when path includes "chat"
+// checking for register path
+if (splitPath.includes("register")) {
+  // when submit button is clicked
+  const password = document.querySelector("input[name='password']");
+  const passwordTwo = document.querySelector("input[name='password2']");
+  document.querySelector(".btn").addEventListener("click", (e) => {
+    const pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,10}$/;
+    // checks if password
+    if (password.value === "" || !password.value.match(pwd)) {
+      e.preventDefault();
+      showErrorDiv(`
+      <p class="my-0 py-0">Password must:</p>
+      <p class="my-0 py-0">* Be between 8 to 10 characters</p>
+      <p class="my-0 py-0">* Contain at least one numeric digit</p>
+      <p class="my-0 py-0">* One uppercase</p>
+      <p class="my-0 py-0">* One lowercase letter</p>
+      `)
+    };
+    if (password.value !== passwordTwo.value) {
+      e.preventDefault();
+      showErrorDiv(`Passwords must match`);
+    }
+  });
+}
+// show error div function 
+function showErrorDiv(str) {
+  // div to show errors
+  const errorDiv = document.createElement("div");
+  errorDiv.classList.add("text-danger", "p-3");
+  errorDiv.innerHTML = str;
+  setTimeout(() => { errorDiv.innerHTML = "" }, 5000);
+  document.querySelector("h3[class='text-center']").after(errorDiv)
+}
+// checking for chat path
 if (splitPath.includes("chat")) {
   const socket = io(`/mainspace`),
     chatWindow = document.querySelector("#chat-window"),

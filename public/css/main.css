@@ -51,7 +51,7 @@ span.navbar-toggler i.fas{
   background-color: var(--main-black);
   padding: 1rem;
   width: 50%;
-  margin-top:10%
+  margin-top:5%
 }
 #welcome-page p{
   text-align: center;
@@ -194,7 +194,7 @@ form{
   background-color: var(--main-black);
   padding: 1rem 0;
   width: 50% !important;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 /* end forms */
 /* footer */

@@ -45,6 +45,7 @@ if (splitPath.includes("chat")) {
     chatWindow.scrollTop = bottomChat.getBoundingClientRect().top;
   });
   socket.on("chat-message", (message, user, img) => {
+    console.log(img.split("_"));
     if (user === userName) {
       output.innerHTML += `
     <div class="message-div clearfix">
@@ -55,7 +56,7 @@ if (splitPath.includes("chat")) {
           <p><small>${message}</small></p>
           </div>
           <div class="msg-img-wrap">
-              <img src='${img === "" ? "https://i.dlpng.com/static/png/6728146_preview.png" : `../images/${img}`}' alt=${user} class="img-fluid msg-img" />
+              <img src='${img.split("_")[1] === "" ? "https://i.dlpng.com/static/png/6728146_preview.png" : `../images/${img}`}' alt=${user} class="img-fluid msg-img" />
               </div>
               </div>
         </div>

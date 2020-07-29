@@ -2,6 +2,7 @@
   --main-white: #fefefe;
   --lighter-gray: #eeeeee;
   --light-gray: #e0e0e0;
+  --dark-gray: #2e2e2e;
   --main-black: #212121;
 }
 *{
@@ -14,8 +15,8 @@ body{
   width: 100%;
 }
 body{
-  background-color: var(--main-white);
-  color: var(--main-black);
+  background-color: var(--main-black);
+  color: var(--main-white);
 }
 /* all btn classes */
 .btn{
@@ -23,14 +24,18 @@ body{
 }
 /* navbar */
 nav.navbar{
-  background-color: var(--main-white) !important;
+  background-color: var(--main-black) !important;
 }
 nav.navbar button.navbar-toggler{
   border: none;
   outline: none;
 }
+nav.navbar a.navbar-brand,
 nav.navbar ul.navbar-nav li.nav-item a.nav-link{
-  color: var(--main-black);
+  color: var(--main-white);
+}
+span.navbar-toggler i.fas{
+  color: var(--main-white);
 }
 /* navbar ends */
 #main-content{
@@ -53,11 +58,12 @@ nav.navbar ul.navbar-nav li.nav-item a.nav-link{
 }
 #choose-chat p{
   margin: 0;
+  background-color: var(--dark-gray);
 }
 #choose-chat p a{
   font-weight: bold;
   text-decoration: none;
-  color: var(--main-black);
+  color: var(--main-white);
 }
 #choose-hr{
   margin: .25rem;
@@ -100,6 +106,10 @@ div.msg-para-div p{
   margin: 0;
   padding: 0;
 }
+.msg-para-div{
+  background-color: var(--main-black);
+  color: var(--main-white);
+}
 #user-image{
   display: none;
 }
@@ -119,7 +129,7 @@ div.msg-para-div p{
   height: 80vh;
   overflow-y: auto;
   position: relative;
-  background-color: var(--lighter-gray);
+  background-color: var(--dark-gray);
 }
 #room-name{
   text-align: center;
@@ -135,6 +145,8 @@ div.msg-para-div p{
 #chat-input{
   margin-bottom: 2.5rem;
   padding: 0;
+  background-color: var(--main-black);
+  color: var(--main-white);
 }
 .para-msg::after{
   display: block;
@@ -157,8 +169,13 @@ span.chat-name{
   border-radius: 2px;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .15);
 }
-#message-input{
+#message-input,
+#message-input:focus{
   padding-left: .5rem;
+  background-color: var(--main-black);
+  color: var(--main-white);
+  outline: none;
+  border-right: none;
 }
 /* end chat styles */
 /* login and register */
@@ -168,7 +185,7 @@ span.chat-name{
 /* end login and register */
 /* forms */
 form{
-  background-color: var(--main-white);
+  background-color: var(--main-black);
   padding: 1rem 0;
   width: 60% !important;
 }
@@ -176,7 +193,7 @@ form{
 /* footer */
 footer{
   text-align: center;
-  background-color: var(--main-white)
+  background-color: var(--main-black)
 }
 /* end footer */
 /* media 768px */

@@ -2,7 +2,7 @@
   <a class="navbar-brand" href="#">Chatbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler"><i class="fas fa-bars"></i></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
@@ -15,7 +15,7 @@
       </li>
       <%}else{%>
       <li class="nav-item">
-        <a class="nav-link" id="user-name" href="/user/profile/<%= user.id %>"><%= user.username %></a>
+        <a class="nav-link" id="user-name" href="/user/profile/<%= user.id %>"><%= user.username.toUpperCase() %></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/chat">Chat</a>

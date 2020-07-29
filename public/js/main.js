@@ -68,7 +68,7 @@ if (splitPath.includes("chat")) {
     <div class="message-wrap float-left">
     <div class="msg-inline-wrap">
           <div class="msg-img-wrap">
-          <img src='../images/${img}' alt=${user} class="img-fluid msg-img" />
+          <img src='${img.split("_")[1] === "" ? "https://i.dlpng.com/static/png/6728146_preview.png" : `../images/${img}`}' alt=${user} class="img-fluid msg-img" />
           </div>
           <div class="msg-para-div">
           <p><small><b>${user}</b></small></p>

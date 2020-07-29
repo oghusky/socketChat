@@ -1,12 +1,8 @@
 // make socket connection in browser
 const pathname = window.location.pathname;
 const splitPath = pathname.split("/");
-console.log(splitPath);
 
-if (splitPath.includes("register")) {
-
-}
-
+// 
 // when path includes "chat"
 if (splitPath.includes("chat")) {
   const socket = io(`/mainspace`),
@@ -35,8 +31,8 @@ if (splitPath.includes("chat")) {
     socket.on("left-room", (usercnt) => {
       roomCount.textContent = `(${usercnt.length})`;
     });
-    socket.emit("joinRoom", roomName, userName, "", userImg, "");
-    socket.on("newChatter", (userid, username, userage, userimg, usergender, usersarr) => {
+    socket.emit("joinRoom", roomName, userName, userImg);
+    socket.on("newChatter", (username, usersarr) => {
       let newComer = document.createElement("div");
       newComer.innerHTML = `${username} just entered`;
       newComer.classList.add("text-center");
@@ -59,7 +55,7 @@ if (splitPath.includes("chat")) {
           <p><small>${message}</small></p>
           </div>
           <div class="msg-img-wrap">
-              <img src='../images/${img}' alt=${user} class="img-fluid msg-img" />
+              <img src='${img === "" ? "https://i.dlpng.com/static/png/6728146_preview.png" : `../images/${img}`}' alt=${user} class="img-fluid msg-img" />
               </div>
               </div>
         </div>

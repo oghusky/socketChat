@@ -85,7 +85,7 @@ io
   // what to do on connection
   .on("connection", (socket, path) => {
     // what to do when user joins room
-    socket.on("joinRoom", (roomName, username, userage, userimg, usergender) => {
+    socket.on("joinRoom", (roomName, username, userimg) => {
       // join room socket action
       socket.join(roomName);
       // const socketid = socket.id;
@@ -97,7 +97,7 @@ io
         .of("/mainspace")
         .in(roomName)
         // emit this message
-        .emit("newChatter", userId.length, username, userage, userimg, usergender, userMap);
+        .emit("newChatter", username, userMap);
     });
     // on message grab roomName and message
     socket.on("message", (roomName, message, username, userimg) => {

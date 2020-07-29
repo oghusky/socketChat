@@ -24,11 +24,6 @@ const userSchema = new mongoose.Schema({
     trim: true,
     require: true,
   },
-  password2: {
-    type: String,
-    trim: true,
-    require: true
-  },
   date: {
     type: Date,
     default: Date.now
@@ -36,7 +31,6 @@ const userSchema = new mongoose.Schema({
   userimgname: {
     data: Buffer,
     type: String,
-    default: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png"
   },
   messages: [
     {

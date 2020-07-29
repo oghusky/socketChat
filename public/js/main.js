@@ -2,18 +2,20 @@
 const pathname = window.location.pathname;
 const splitPath = pathname.split("/");
 console.log(splitPath);
+
+if (splitPath.includes("register")) {
+
+}
+
+// when path includes "chat"
 if (splitPath.includes("chat")) {
   const socket = io(`/mainspace`),
-    yamChat = document.querySelector("#yam-chat"),
     chatWindow = document.querySelector("#chat-window"),
     output = document.querySelector("#output"),
-    chatInput = document.querySelector("#chat-input"),
     messageInput = document.querySelector("#message-input"),
     userName = (document.querySelector("#user-name") === undefined ? "" : document.querySelector("#user-name").textContent),
     userImg = document.querySelector("#user-image") === null ? "" : document.querySelector("#user-image").textContent,
-    userProImg = document.querySelector("#user-pro-image"),
     roomName = (document.querySelector("#room-name") === undefined || document.querySelector("#room-name") === null ? "" : document.querySelector("#room-name").textContent),
-    paraMsg = document.querySelectorAll(".msg"),
     bottomChat = document.querySelector("#bottom-window"),
     roomCount = document.querySelector("#room-count"),
     leaveBtn = document.querySelector("#leave-btn"),

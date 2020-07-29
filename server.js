@@ -43,6 +43,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// get body requests
+app.use(express.json());
+
 // Set static path
 app.use(express.static(path.join(__dirname, 'public')));
 

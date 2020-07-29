@@ -1,20 +1,21 @@
 <form class="container" action="/register" method="POST" enctype="multipart/form-data" autocomplete="off">
-  <input type="file" name="userimg" id="userimgname">
   <h3 class="text-center">Register</h3>
-  <div class="form-group">
-    <input type="text" class="form-control" name="username" placeholder="User Name" />
+  <input type="file" name="userimg" id="userimgname">
+  <div class="form-group mt-3">
+    <input type="text" class="form-control" name="username" placeholder="User Name" required />
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" name="name" placeholder="Full Name" autocomplete="new-name" />
+    <input type="text" class="form-control" name="name" placeholder="Full Name" autocomplete="new-name" required />
   </div>
   <div class="form-group">
-    <input type="email" class="form-control" name="email" placeholder="email@example.com" autocomplete="new-email" />
+    <input type="email" class="form-control" name="email" placeholder="email@example.com" autocomplete="new-email"
+      required />
   </div>
   <div class="form-group">
-    <input type="password" class="form-control" name="password" placeholder="Enter Password" />
+    <input type="password" class="form-control" name="password" placeholder="Enter Password" required />
   </div>
   <div class="form-group">
-    <input type="password" class="form-control" name="password2" placeholder="Confirm Password" />
+    <input type="password" class="form-control" name="password2" placeholder="Confirm Password" required />
   </div>
   <p class="btn-para"><button class="btn btn-primary">REGISTER</button></p>
   <p>If you have an account go <a href="/login">Login</a></p>

@@ -81,14 +81,14 @@ span.navbar-toggler i.fas{
   display: flex;
 }
 .msg-img-wrap{
-  width: 3rem;
+  width: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .msg-img{
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.7rem;
+  height: 2.7rem;
   border-radius: 50%;
 }
 .msg-para-div{

@@ -1,5 +1,5 @@
 :root{
-  --main-white: #fafafa;
+  --main-white: #fefefe;
   --lighter-gray: #eeeeee;
   --light-gray: #e0e0e0;
   --main-black: #212121;
@@ -17,6 +17,18 @@ body{
   background-color: var(--lighter-gray);
   color: var(--main-black);
 }
+/* navbar */
+nav.navbar{
+  background-color: var(--main-white) !important;
+}
+nav.navbar button.navbar-toggler{
+  border: none;
+  outline: none;
+}
+nav.navbar ul.navbar-nav li.nav-item a.nav-link{
+  color: var(--main-black);
+}
+/* navbar ends */
 #main-content{
   margin-top: 70px;
   padding: 0;
@@ -54,9 +66,7 @@ body{
   display: block;
   margin: .5rem 0;
 }
-.message-wrap{
-  /* position: absolute; */
-}
+
 .msg-inline-wrap{
   display: flex;
 }

@@ -37,9 +37,9 @@ const postRegister = async (req, res) => {
           }
           // This user is not registered. Continue.
           const newUser = new User({
-            userimgname, username, name, email, password
+            userimgname: `${username}_${userimgname}`, username, name, email, password
           });
-          if (userimg !== "") req.files.userimg.mv(`./public/images/${userimgname}`)
+          if (userimg !== "") req.files.userimg.mv(`./public/images/${username}_${userimgname}`)
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
               if (err) throw err;

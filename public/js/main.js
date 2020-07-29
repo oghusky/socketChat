@@ -32,7 +32,9 @@ function showErrorDiv(str) {
   const errorDiv = document.createElement("div");
   errorDiv.classList.add("text-danger", "p-3");
   errorDiv.innerHTML = str;
-  setTimeout(() => { errorDiv.innerHTML = "" }, 5000);
+  setTimeout(() => {
+    document.querySelector("form[class='container']").removeChild(errorDiv)
+  }, 5000);
   document.querySelector("h3[class='text-center']").after(errorDiv)
 }
 // checking for chat path

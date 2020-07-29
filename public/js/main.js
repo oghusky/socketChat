@@ -45,6 +45,7 @@ if (splitPath.includes("chat")) {
     chatWindow.scrollTop = bottomChat.getBoundingClientRect().top;
   });
   socket.on("chat-message", (message, user, img) => {
+    const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../images/${img}`;
     if (user === userName) {
       output.innerHTML += `
     <div class="message-div clearfix">
@@ -55,19 +56,20 @@ if (splitPath.includes("chat")) {
           <p><small>${message}</small></p>
           </div>
           <div class="msg-img-wrap">
-              <img src='${img.split("_")[1] === "" ? "https://i.dlpng.com/static/png/6728146_preview.png" : `../images/${img}`}' alt=${user} class="img-fluid msg-img" />
+              <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
               </div>
               </div>
         </div>
         </div>
   `;
     } else {
+      const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../images/${img}`;
       output.innerHTML += `
     <div class="message-div clearfix">
     <div class="message-wrap float-left">
     <div class="msg-inline-wrap">
           <div class="msg-img-wrap">
-          <img src='${img.split("_")[1] === "" ? "https://i.dlpng.com/static/png/6728146_preview.png" : `../images/${img}`}' alt=${user} class="img-fluid msg-img" />
+          <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
           </div>
           <div class="msg-para-div">
           <p style="color: #007bff;"><small><b>${user}</b></small></p>

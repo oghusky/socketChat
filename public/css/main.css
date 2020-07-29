@@ -19,8 +19,12 @@ body{
   color: var(--main-white);
 }
 /* all btn classes */
-.btn{
+.btn, 
+.btn:hover, 
+.btn:focus{
   border-radius: 0 !important;
+  outline:none;
+  border: none;
 }
 /* navbar */
 nav.navbar{
@@ -44,8 +48,10 @@ span.navbar-toggler i.fas{
 }
 /* welcome page */
 #welcome-page{
-  background-color: var(--main-white);
+  background-color: var(--main-black);
   padding: 1rem;
+  width: 50%;
+  margin-top:25%
 }
 #welcome-page p{
   text-align: center;
@@ -144,7 +150,6 @@ div.msg-para-div p{
 }
 #chat-input{
   margin-bottom: 2.5rem;
-  padding: 0;
   background-color: var(--main-black);
   color: var(--main-white);
 }
@@ -175,7 +180,8 @@ span.chat-name{
   background-color: var(--main-black);
   color: var(--main-white);
   outline: none;
-  border-right: none;
+  border:none;
+  border-bottom: 1px solid white;
 }
 /* end chat styles */
 /* login and register */
@@ -187,7 +193,8 @@ span.chat-name{
 form{
   background-color: var(--main-black);
   padding: 1rem 0;
-  width: 60% !important;
+  width: 50% !important;
+  margin-top: 10%;
 }
 /* end forms */
 /* footer */
@@ -213,5 +220,15 @@ footer{
   }
 }
 /* end media 414px */
+/* media 320px */
+@media only screen and (max-width: 320px){
+  #room-name{
+    font-size: 1.1rem;
+  }
+  #chat-window{
+    height: 65vh;
+  }
+}
+/* end media 320px */
 
 

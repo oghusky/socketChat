@@ -1,13 +1,43 @@
 // make socket connection in browser
 const pathname = window.location.pathname;
 const splitPath = pathname.split("/");
-console.log(splitPath);
 
+// checking for register path
 if (splitPath.includes("register")) {
-
+  // when submit button is clicked
+  const password = document.querySelector("input[name='password']");
+  const passwordTwo = document.querySelector("input[name='password2']");
+  document.querySelector(".btn").addEventListener("click", (e) => {
+    const pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,10}$/;
+    // checks if password
+    if (password.value === "" || !password.value.match(pwd)) {
+      e.preventDefault();
+      showErrorDiv(`
+      <p class="my-0 py-0">Password must:</p>
+      <p class="my-0 py-0">* Be between 8 to 10 characters</p>
+      <p class="my-0 py-0">* Contain at least one numeric digit</p>
+      <p class="my-0 py-0">* One uppercase</p>
+      <p class="my-0 py-0">* One lowercase letter</p>
+      `)
+    };
+    if (password.value !== passwordTwo.value) {
+      e.preventDefault();
+      showErrorDiv(`Passwords must match`);
+    }
+  });
 }
-
-// when path includes "chat"
+// show error div function 
+function showErrorDiv(str) {
+  // div to show errors
+  const errorDiv = document.createElement("div");
+  errorDiv.classList.add("text-danger", "p-3");
+  errorDiv.innerHTML = str;
+  setTimeout(() => {
+    document.querySelector("form[class='container']").removeChild(errorDiv)
+  }, 5000);
+  document.querySelector("h3[class='text-center']").after(errorDiv)
+}
+// checking for chat path
 if (splitPath.includes("chat")) {
   const socket = io(`/mainspace`),
     chatWindow = document.querySelector("#chat-window"),
@@ -35,8 +65,8 @@ if (splitPath.includes("chat")) {
     socket.on("left-room", (usercnt) => {
       roomCount.textContent = `(${usercnt.length})`;
     });
-    socket.emit("joinRoom", roomName, userName, "", userImg, "");
-    socket.on("newChatter", (userid, username, userage, userimg, usergender, usersarr) => {
+    socket.emit("joinRoom", roomName, userName, userImg);
+    socket.on("newChatter", (username, usersarr) => {
       let newComer = document.createElement("div");
       newComer.innerHTML = `${username} just entered`;
       newComer.classList.add("text-center");
@@ -49,32 +79,34 @@ if (splitPath.includes("chat")) {
     chatWindow.scrollTop = bottomChat.getBoundingClientRect().top;
   });
   socket.on("chat-message", (message, user, img) => {
+    const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../images/${img}`;
     if (user === userName) {
       output.innerHTML += `
     <div class="message-div clearfix">
     <div class="message-wrap float-right">
           <div class="msg-inline-wrap">
           <div class="msg-para-div">
-          <p><small><b>${user}</b></small></p>
+          <p style="color: #007bff;"><small><b>${user}</b></small></p>
           <p><small>${message}</small></p>
           </div>
           <div class="msg-img-wrap">
-              <img src='../images/${img}' alt=${user} class="img-fluid msg-img" />
+              <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
               </div>
               </div>
         </div>
         </div>
   `;
     } else {
+      const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../images/${img}`;
       output.innerHTML += `
     <div class="message-div clearfix">
     <div class="message-wrap float-left">
     <div class="msg-inline-wrap">
           <div class="msg-img-wrap">
-          <img src='../images/${img}' alt=${user} class="img-fluid msg-img" />
+          <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
           </div>
           <div class="msg-para-div">
-          <p><small><b>${user}</b></small></p>
+          <p style="color: #007bff;"><small><b>${user}</b></small></p>
           <p><small>${message}</small></p>
           </div>
               </div>

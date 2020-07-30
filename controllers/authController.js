@@ -2,8 +2,7 @@ const
   User = require("../models/User"),
   bcrypt = require("bcryptjs"),
   passport = require("passport"),
-  { isValid } = require("../utils/validatePwd"),
-  { task } = require("../gulpfile");
+  { isValid } = require("../utils/validatePwd");
 
 const getIndex = async (req, res) => {
   res.render("auth/welcome", { path: "/welcome", user: req.user });
@@ -43,7 +42,6 @@ const postRegister = async (req, res) => {
           // moves image files
           if (userimg !== "") req.files.userimg.mv(`./public/images/${username}_${userimgname}`);
           // compress image
-          task(`${username}_${userimgname}`);
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
               if (err) throw err;

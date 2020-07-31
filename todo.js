@@ -4,3 +4,5 @@
 // setup private messages
 // setup picture compression
 // minify client side JS
+// add "One special character to registration warning"
+// do not limit password length

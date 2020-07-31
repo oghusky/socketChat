@@ -1,14 +1,3 @@
-<<<<<<< HEAD
 .env/
 /node_modules
 package.json/
-=======
-# Dependencies
-node_modules/
-
-# Config files
-.env
-
-# Generated files
-public/images
->>>>>>> cc58bb7af8de7753ab985e97d4d090582c305c19

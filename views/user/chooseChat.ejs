@@ -1,6 +1,6 @@
 <%-include("../partials/navbar") -%>
 <div id="choose-chat">
-  <% chatRooms.map((room, i)=>{%>
+  <% chatRooms.map(function(room, i){%>
   <p>
     <a href="/chat/<%= room.toLowerCase() %>"> <%= room.toUpperCase() %></a>
   </p>

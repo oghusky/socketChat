@@ -1,5 +1,5 @@
 <div class="container">
-  <%mail.reverse().map(msg=>{%>
+  <%mail.reverse().map(function(msg){%>
   <p>From: <%=msg.sender.username%></p>
   <p><%=msg.messageBody%></p>
   <%if(user) {%>

@@ -85,33 +85,33 @@ if (splitPath.includes("chat")) {
     <div class="message-div clearfix">
     <div class="message-wrap float-right">
           <div class="msg-inline-wrap">
-          <div class="msg-para-div">
-          <p style="color: #007bff;"><small><b>${user}</b></small></p>
-          <p><small>${message}</small></p>
-          </div>
-          <div class="msg-img-wrap">
+            <div class="msg-para-div">
+              <p style="color: #007bff;"><small><b>${user}</b></small></p>
+              <p><small>${message}</small></p>
+            </div>
+            <div class="msg-img-wrap">
               <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
-              </div>
-              </div>
+            </div>
+          </div>
         </div>
         </div>
   `;
     } else {
       const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../images/${img}`;
       output.innerHTML += `
-    <div class="message-div clearfix">
-    <div class="message-wrap float-left">
-    <div class="msg-inline-wrap">
-          <div class="msg-img-wrap">
-          <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
+      <div class="message-div clearfix">
+        <div class="message-wrap float-left">
+          <div class="msg-inline-wrap">
+            <div class="msg-img-wrap">
+              <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
+            </div>
+            <div class="msg-para-div">
+              <p style="color: #007bff;"><small><b>${user}</b></small></p>
+              <p><small>${message}</small></p>
+            </div>
           </div>
-          <div class="msg-para-div">
-          <p style="color: #007bff;"><small><b>${user}</b></small></p>
-          <p><small>${message}</small></p>
-          </div>
-              </div>
-              </div>
         </div>
+      </div>
         `;
     }
   });

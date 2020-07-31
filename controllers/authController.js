@@ -39,7 +39,9 @@ const postRegister = async (req, res) => {
           const newUser = new User({
             userimgname: `${username}_${userimgname}`, username, name, email, password
           });
-          if (userimg !== "") req.files.userimg.mv(`./public/images/${username}_${userimgname}`)
+          // moves image files
+          if (userimg !== "") req.files.userimg.mv(`./public/images/${username}_${userimgname}`);
+          // compress image
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
               if (err) throw err;

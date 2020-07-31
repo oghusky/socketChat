@@ -16,8 +16,9 @@ if (splitPath.includes("register")) {
       <p class="my-0 py-0">Password must:</p>
       <p class="my-0 py-0">* Be between 8 to 10 characters</p>
       <p class="my-0 py-0">* Contain at least one numeric digit</p>
-      <p class="my-0 py-0">* One uppercase</p>
+      <p class="my-0 py-0">* One uppercase letter</p>
       <p class="my-0 py-0">* One lowercase letter</p>
+      <p class="my-0 py-0">* One special character</p>
       `)
     };
     if (password.value !== passwordTwo.value) {
@@ -39,10 +40,10 @@ function showErrorDiv(str) {
 }
 // checking for chat path
 if (splitPath.includes("chat")) {
+  let messageInput = document.querySelector("#message-input");
   const socket = io(`/mainspace`),
     chatWindow = document.querySelector("#chat-window"),
     output = document.querySelector("#output"),
-    messageInput = document.querySelector("#message-input"),
     userName = (document.querySelector("#user-name") === undefined ? "" : document.querySelector("#user-name").textContent),
     userImg = document.querySelector("#user-image") === null ? "" : document.querySelector("#user-image").textContent,
     roomName = (document.querySelector("#room-name") === undefined || document.querySelector("#room-name") === null ? "" : document.querySelector("#room-name").textContent),
@@ -119,6 +120,7 @@ if (splitPath.includes("chat")) {
     socket.emit("disconnected", roomName, roomCount);
   }
   function emitMessage() {
+    let messageInput = document.querySelector("#message-input");
     if (messageInput.value !== "" && messageInput.value.length <= 120) {
       const message = messageInput.value;
       socket.emit("message", roomName, message, userName, userImg);

@@ -1,8 +1,8 @@
 // ============= User Registration ==============
-// validate password in express, mongo and client
+// DONE --- validate password in express, mongo and client
 // add list of users for each chat to each chat
 // setup private messages
 // setup picture compression
-// minify client side JS
-// add "One special character to registration warning"
-// do not limit password length
+// DONE --- minify client side JS
+// DONE --- add "One special character" to registration warning
+// DONE --- password length change pwd length limit

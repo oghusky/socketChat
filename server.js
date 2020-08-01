@@ -16,8 +16,8 @@ const express = require("express"),
 require("./config/passport")(passport);
 
 //Connect to mongo
-// mongoose.connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-mongoose.connect("mongodb://localhost:27017/socketChat", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+  // mongoose.connect("mongodb://localhost:27017/socketChat", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => console.log("Mongo Connect"))
   .catch(err => console.log(err));
 

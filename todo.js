@@ -7,9 +7,9 @@
 // add list of users for each chat to each chat
 // setup private messages
 // ============== image compression ==============
-// setup image compression
-// setup JS to pull images from build folder
-// delete original uploaded image from public/images folder
+// DONE --- setup image compression
+// DONE --- setup JS to pull images from build folder
+// DONE --- delete original uploaded image from public/images folder
 // ============== Compiled JS ====================
 // create build/js folder to
 // change code in webpack.config to send JS to build/js

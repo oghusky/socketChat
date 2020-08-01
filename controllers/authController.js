@@ -2,7 +2,7 @@ const
   User = require("../models/User"),
   bcrypt = require("bcryptjs"),
   passport = require("passport"),
-  { imageMin, rmImage } = require("../gulpfile"),
+  { imageMin } = require("../gulpfile"),
   { isValid } = require("../utils/validatePwd");
 
 const getIndex = async (req, res) => {
@@ -46,8 +46,6 @@ const postRegister = async (req, res) => {
             // =============== IMAGE COMPRESSION ============================
             imageMin(`${username}_${userimgname}`);
           };
-          // ================= DELETE UPLOADED IMAGE ========================
-
           // compress image
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {

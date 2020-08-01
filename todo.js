@@ -14,3 +14,6 @@
 // create build/js folder to
 // change code in webpack.config to send JS to build/js
 // change code in layout.ejs to pull code from build/js
+// ============== Controllers ====================
+// remove unneccessary "async" calls on controllers
+// get code exports consistant across all controllers

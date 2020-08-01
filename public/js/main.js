@@ -80,7 +80,7 @@ if (splitPath.includes("chat")) {
     chatWindow.scrollTop = bottomChat.getBoundingClientRect().top;
   });
   socket.on("chat-message", (message, user, img) => {
-    const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../images/${img}`;
+    const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../build/images/${img}`;
     if (user === userName) {
       output.innerHTML += `
     <div class="message-div clearfix">
@@ -98,7 +98,7 @@ if (splitPath.includes("chat")) {
         </div>
   `;
     } else {
-      const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../images/${img}`;
+      const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../build/images/${img}`;
       output.innerHTML += `
       <div class="message-div clearfix">
         <div class="message-wrap float-left">

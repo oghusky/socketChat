@@ -1,13 +1,17 @@
 const router = require("express").Router();
-const userController = require("../controllers/userController");
+const {
+  getAllUsers,
+  getProfile,
+  putToProfile } = require("../controllers/userController");
+const { ensureAuth } = require("../config/auth");
 
 router
   .route("/")
-  .get(userController.getAllUsers);
+  .get(getAllUsers);
 
 router
   .route("/profile/:id")
-  .get(userController.profile)
-  .post(userController.postToProfile);
+  .get(getProfile)
+  .put(putToProfile);
 
 module.exports = router;

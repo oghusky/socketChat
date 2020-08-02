@@ -5,19 +5,46 @@ const
   { imageMin } = require("../gulpfile"),
   { isValid } = require("../utils/validatePwd");
 
-const getIndex = async (req, res) => {
-  res.render("auth/welcome", { path: "/welcome", user: req.user });
+exports.getIndex = (req, res) => {
+  try {
+    res.status(200).render("auth/welcome", {
+      path: "/welcome",
+      user: req.user
+    });
+  } catch (err) {
+    res.status(500).render("error/error500", {
+      path: "/500"
+    });
+  }
 };
 
-const getRegister = async (req, res) => {
-  res.render("auth/register", { path: "/register", user: req.user });
+exports.getRegister = (req, res) => {
+  try {
+    res.status(200).render("auth/register", {
+      path: "/register",
+      user: req.user
+    });
+  } catch (err) {
+    res.status(500).render("error/error500", {
+      path: "/500"
+    });
+  }
 };
 
-const getLogin = async (req, res) => {
-  res.render("auth/login", { path: "/login", user: req.user });
+exports.getLogin = (req, res) => {
+  try {
+    res.status(200).render("auth/login", {
+      path: "/login",
+      user: req.user
+    });
+  } catch (err) {
+    res.status(500).render("error/error500", {
+      path: "/500"
+    });
+  }
 };
 
-const postRegister = async (req, res) => {
+exports.postRegister = (req, res) => {
   const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
   const userimgname = userimg === "" ? "" : userimg.name;
   const { username, name, email, password, password2 } = req.body;
@@ -55,31 +82,24 @@ const postRegister = async (req, res) => {
                 .then(user => {
                   return res.redirect("/login");
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                  console.log(err);
+                  return res.redirect("/register")
+                });
             })
           })
         });
     }
   }
 };
-
-const postLogin = async (req, res, next) => {
+exports.postLogin = (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/chat",
     failureRedirect: "/login",
   })(req, res, next);
 };
 
-const getLogout = async (req, res) => {
+exports.getLogout = (req, res) => {
   req.logout();
   res.redirect("/login");
-};
-
-module.exports = {
-  getIndex,
-  getRegister,
-  getLogin,
-  postRegister,
-  postLogin,
-  getLogout,
 };

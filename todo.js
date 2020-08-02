@@ -6,6 +6,8 @@
 // ============== User Experience ================
 // add list of users for each chat to each chat
 // setup private messages
+// design user profile page
+// edit form to update page
 // ============== image compression ==============
 // DONE --- setup image compression
 // DONE --- setup JS to pull images from build folder
@@ -15,5 +17,8 @@
 // change code in webpack.config to send JS to build/js
 // change code in layout.ejs to pull code from build/js
 // ============== Controllers ====================
-// remove unneccessary "async" calls on controllers
-// get code exports consistant across all controllers
+// DONE --- remove unneccessary "async" calls on controllers
+// DONE --- get code exports consistant across all controllers
+// DONE --- add try catch blocks to controllers
+// ============== API ============================
+// full CRUD for users

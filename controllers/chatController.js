@@ -17,7 +17,7 @@ const chatRooms = [
 ]
 
 
-exports.index = async (req, res) => {
+exports.getRoomNames = (req, res) => {
   try {
     let users = [];
     let roomName = req.params.roomName;
@@ -30,15 +30,23 @@ exports.index = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    res.status(500).render("error/error500", {
+      path: "/500"
+    })
   }
-},
-  exports.chooseChat = async (req, res) => {
-
+};
+exports.getChosenChat = (req, res) => {
+  try {
     req.headers["chat-user"] = `${req.user}`;
-    res.render("user/chooseChat", {
-      chatRooms, user: req.user,
+    res.status(200).render("user/chooseChat", {
+      chatRooms,
+      user: req.user,
       roomName: req.params.roomName,
       path: "/chat"
     });
+  } catch (err) {
+    res.status(500).render("error/error500", {
+      path: "/505"
+    });
   }
+};

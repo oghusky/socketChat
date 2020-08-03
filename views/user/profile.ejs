@@ -1,10 +1,50 @@
-<section id="user-profile" class="container">
-  <span id="user-image"><%= user.userimgname %></span>
-  <div class="container-fluid">
-    <img src="/images/<%= user.userimgname %>" alt="<%= user.username %>" class="img-fluid" id="user-pro-image">
-  </div>
-  <div class="user-info">
-    <h3><%= user.name %></h3>
-    <p><%= user.username %></p>
-  </div>
+<section class="container profile">
+  <header>
+    <h3>the</h3>
+    <h1>CHATBAR</h1>
+  </header>
+  <div class="user-img">
+    <div class="container-fluid">
+      <%if(!currentUser.userimgname.includes(".jpg")){%>
+      <img src="/images/avatar.png" alt="" class="img-fluid">
+      <%}else if(currentUser.userimgname.includes(".jpg")){%>
+      <img src="/build/images/<%= currentUser.userimgname %>" alt="" class="img-fluid">
+      <%}else if(!currentUser.userimgname.includes(".jpeg")){%>
+      <img src="/images/avatar.png" alt="" class="img-fluid">
+      <%}else if(currentUser.userimgname.includes(".jpeg")){%>
+      <img src="/build/images/<%= currentUser.userimgname %>" alt="" class="img-fluid">
+      <%}else if(!currentUser.userimgname.includes(".png")){%>
+      <img src="/images/avatar.png" alt="" class="img-fluid">
+      <%}else{%>
+      <img src="/build/images/<%= currentUser.userimgname %>" alt="" class="img-fluid">
+      <%}%>
+    </div>
+    <a href="/user/add_photo=<%= user.id %>" style="display:<%=(currentUser.id === user.id ? "inline":"none")%>">
+      <i class="fas fa-camera"></i>
+      </a>
+    </div>
+    <main>
+      <div class="pre-info"></div>
+      <p class="text-center mt-3">
+        <a href="/user/edit_info=<%= user.id %>" style="display:<%=(currentUser.id === user.id ? "inline":"none")%>">
+          <button class="btn edit-pro">Edit
+            Info</button>
+        </a>
+      </p>
+      <div class="user-info">
+        <h2 class="user-name mb-0"><%= currentUser.username %></h2>
+        <p><%= currentUser.name %></p>
+        <p class="mb-0"><span class="mx-1 pb-0">32</span> <span class="mx-1">M</span></p>
+        <p class="my-0 py-0">City, State</p>
+        <h3 class="user-links">
+          <button class="btn mx-1"><i class="fab fa-instagram"></i></button>
+          <button class="btn mx-1"><i class="fab fa-facebook-f"></i></button>
+          <button class="btn mx-1"><i class="fab fa-twitter"></i></button>
+        </h3>
+        <div class="user-bio pb-5">
+          <h4>Bio:</h4>
+          <p>No bio to show</p>
+        </div>
+      </div>
+    </main>
 </section>

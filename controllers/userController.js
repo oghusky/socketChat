@@ -16,8 +16,10 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
   try {
+    const currentUser = await User.findById({ _id: req.params.id });
     res.status(200).render("user/profile", {
       path: "/profile/:id",
+      currentUser,
       user: req.user
     })
   } catch (err) {
@@ -27,24 +29,35 @@ exports.getProfile = async (req, res) => {
   }
 };
 
-exports.putToProfile = async (req, res) => {
+exports.getAddPhoto = async (req, res) => {
   try {
-    res.status(200).send("posted to profile", {
-      user: req.user
-    })
+    const currentUser = await User.findById({ _id: req.params.id })
+    res.status(200).render("user/add-photo", {
+      path: "/add-photo",
+      user: req.user,
+      currentUser
+    });
   } catch (err) {
-    res.status(404).render("error/error404", {
-      path: "/404"
-    })
+    res.status(404).render("error/error404")
   }
-};
+}
+
+exports.putAddPhotod = async (req, res) => {
+  try {
+    await User.findById({ _id: req.user.id })
+      .then(user => {
+        console.log(user)
+      })
+  } catch (err) { }
+}
 
 exports.getUserEditForm = async (req, res) => {
   try {
-    const user = await User.findById({ _id: req.user.id });
+    const currentUser = await User.findById({ _id: req.params.id });
     res.status(200).render("user/edit-info", {
       path: "/edit_info",
-      user
+      user: req.user,
+      currentUser
     })
   } catch (err) {
     res.status(500).render("error/error505", {

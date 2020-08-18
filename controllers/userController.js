@@ -1,11 +1,19 @@
-const User = require("../models/User");
+const User = require("../models/User"),
+  { imageMin } = require("../gulpfile"),
+  fs = require('fs'),
+  del = require('del');
+
+const rmImg = async (img) => {
+  await del([`public/build/${img}`, '!public/build']);
+}
 
 exports.getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find();
-    res.status(200).send({
+    res.status(200).render("user/all-users", {
       path: "/all_users",
-      allUsers
+      allUsers,
+      user: req.user
     });
   } catch (err) {
     res.status(404).send({
@@ -42,11 +50,20 @@ exports.getAddPhoto = async (req, res) => {
   }
 }
 
-exports.putAddPhotod = async (req, res) => {
+exports.putAddPhoto = async (req, res) => {
   try {
     await User.findById({ _id: req.user.id })
       .then(user => {
-        console.log(user)
+        rmImg(`/images/${user.userimgname}`)
+        const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
+        const userimgname = userimg === "" ? "" : userimg.name;
+        if (userimg !== "") {
+          user.userimgname = `${user.username}_${userimgname}`;
+          req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
+          imageMin(`${user.username}_${userimgname}`);
+        }
+        user.save();
+        res.redirect(`/user/${user._id}`);
       })
   } catch (err) { }
 }
@@ -64,4 +81,12 @@ exports.getUserEditForm = async (req, res) => {
       path: "/505"
     })
   }
+}
+
+exports.deleteProfile = async (req, res) => {
+  const user = await User.findOneAndRemove({ _id: req.params.id });
+  if (fs.existsSync(`../public/build/${user.userimgname}`)) {
+    rmImg(`${user.userimgname}`);
+  }
+  user.remove();
 }

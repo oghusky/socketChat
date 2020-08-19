@@ -5,18 +5,14 @@
   </header>
   <div class="user-img">
     <div class="container-fluid">
-      <%if(!currentUser.userimgname.includes(".jpg")){%>
-      <img src="/images/avatar.png" alt="" class="img-fluid">
-      <%}else if(currentUser.userimgname.includes(".jpg")){%>
-      <img src="/build/images/<%= currentUser.userimgname %>" alt="" class="img-fluid">
-      <%}else if(!currentUser.userimgname.includes(".jpeg")){%>
-      <img src="/images/avatar.png" alt="" class="img-fluid">
+      <%if(currentUser.userimgname.includes(".jpg")){%>
+      <img src="/build/images/<%=currentUser.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
+      <%}else if(currentUser.userimgname.includes(".png")){%>
+      <img src="/build/images/<%=currentUser.userimgname%>" alt="<%=currentUser.userimgname%>" class="card-img-top">
       <%}else if(currentUser.userimgname.includes(".jpeg")){%>
-      <img src="/build/images/<%= currentUser.userimgname %>" alt="" class="img-fluid">
-      <%}else if(!currentUser.userimgname.includes(".png")){%>
-      <img src="/images/avatar.png" alt="" class="img-fluid">
+      <img src="/build/images/<%=currentUser.userimgname%>" alt="<%=currentUser.userimgname%>" class="card-img-top">
       <%}else{%>
-      <img src="/build/images/<%= currentUser.userimgname %>" alt="" class="img-fluid">
+      <img src="../images/avatar.png" alt="<%=currentUser.userimgname%>" class="card-img-top">
       <%}%>
     </div>
     <a href="/user/add_photo=<%= user.id %>" style="display:<%=(currentUser.id === user.id ? "inline":"none")%>">

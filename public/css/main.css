@@ -58,7 +58,16 @@ span.navbar-toggler i.fas{
   text-align: center;
 }
 /* end welcome page */
-
+/* all users */
+div.allusers-card{
+  background: var(--dark-gray);
+  color: var(--blue);
+}
+div.allusers-row a,
+div.allusers-row a:hover{
+  text-decoration: none;
+}
+/* end all users */
 /* choose chat */
 #choose-chat{
   padding: 0 1rem;

@@ -1,0 +1,100 @@
+<%if(user.id === currentUser.id){%>
+<form class="container" action="/user/edit_info=<%= currentUser.id %>" method="POST" enctype="multipart/form-data"
+  autocomplete="off">
+  <h3 class="text-center">Edit Info</h3>
+  <div class="form-group mt-3">
+    <input type="text" class="form-control" name="username" placeholder="User Name" value="<%=currentUser.username%>"
+      required />
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="name" placeholder="Full Name" autocomplete="new-name" required
+      value="<%=currentUser.name%>" />
+  </div>
+  <h5>Age:</h5>
+  <input class="mb-3 pr-3" type="date" name="dob" value="2020-01-01" max="2002-08-18" min="1900-01-01">
+  <div class="gender-div">
+    <h5>Gender:</h5>
+    <select class="custom-select" id="validationCustom04" name="gender">
+      <option selected disabled value="">Choose...</option>
+      <option value="M">M</option>
+      <option value="F">F</option>
+      <option value="A-Gender">A-Gender</option>
+      <option value="Bigender">Bigender</option>
+      <option value="Gender Expression">Gender Expression</option>
+      <option value="Gender Fluid">Gender Fluid</option>
+      <option value="Gender Queer">Gender Queer</option>
+      <option value="Intersex">Intersex</option>
+      <option value="Gender Variant">Gender Variant</option>
+      <option value="Third Gender">Third Gender</option>
+      <option value="Transgender">Transgender</option>
+      <option value="Two-Spirit">Two-Spirit</option>
+      <option value="Ze/Hir">Ze/Hir</option>
+    </select>
+  </div>
+  <div class="orientation-div my-3">
+    <h5>Orientation:</h5>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="orientation" id="orientation" value="Straight">
+      <label class="form-check-label" for="orientation">Straight</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="orientation" id="orientation" value="Gay">
+      <label class="form-check-label" for="orientation">Gay</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="orientation" id="orientation" value="Lesbian">
+      <label class="form-check-label" for="orientation">Lesbian</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="orientation" id="orientation" value="Bi-Sexual">
+      <label class="form-check-label" for="orientation">Bi-Sexual</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="orientation" id="orientation" value="Queer">
+      <label class="form-check-label" for="orientation">Queer</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="orientation" id="orientation" value="Self-Identify">
+      <label class="form-check-label" for="orientation">Self-Identify</label>
+    </div>
+  </div>
+  <h5>Location:</h5>
+  <div class="form-group">
+    <input type="text" class="form-control" name="city" placeholder="Enter City" value="<%=currentUser.city%>" />
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="state" placeholder="Enter State" value="<%=currentUser.state%>" />
+  </div>
+  <h5>Social Media:</h5>
+  <div class="form-group mt-3">
+    <input type="text" class="form-control" name="twitter" placeholder="Enter the link to your Twitter"
+      value="<%=currentUser.twitter%>" />
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="facebook" placeholder="Enter the link to your Facebook"
+      value="<%=currentUser.facebook%>" />
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="instagram" placeholder="Enter the link to your Instagram"
+      value="<%=currentUser.instagram%>" />
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="snapchat" placeholder="Enter SnapChat Username"
+      value="<%=currentUser.snapchat%>" />
+  </div>
+  <h5>Change Password:</h5>
+  <div class="form-group">
+    <input type="password" class="form-control" name="password" placeholder="Enter Password"
+      autocomplete="new-password" />
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" name="password2" placeholder="Confirm Password"
+      autocomplete="new-password" />
+  </div>
+  <a href="/user/<%= user.id %>">Cancel</a></p>
+  <p class="btn-para"><button class="btn btn-warning">UPDATE</button>
+</form>
+<form class="container mt-0" action="user/<%=currentUser.id%>" method="GET">
+  <p class="text-center"><button class="btn-danger btn">DELETE</button></p>
+</form>
+<%}%>

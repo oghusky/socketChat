@@ -1,5 +1,10 @@
 const router = require("express").Router();
-const { getMessages, postMessage, messageForm, getReplyForm, postReply } = require("../controllers/messageController");
+const {
+  getMessages,
+  postMessage,
+  messageForm,
+  getReplyForm,
+  postReply } = require("../controllers/messageController");
 const { ensureAuth } = require("../config/auth");
 
 router

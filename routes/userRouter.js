@@ -1,13 +1,36 @@
 const router = require("express").Router();
-const userController = require("../controllers/userController");
+const {
+  getAllUsers,
+  getProfile,
+  getAddPhoto,
+  getUserEditForm,
+  putAddPhoto,
+  putEditInfo,
+  deleteProfile
+} = require("../controllers/userController");
+const { ensureAuth } = require("../config/auth");
 
 router
-  .route("/")
-  .get(userController.getAllUsers);
+  .route("/all_users")
+  .get(ensureAuth, getAllUsers);
 
 router
-  .route("/profile/:id")
-  .get(userController.profile)
-  .post(userController.postToProfile);
+  .route("/add_photo=:id")
+  .get(ensureAuth, getAddPhoto)
+  .post(ensureAuth, putAddPhoto);
+
+router
+  .route("/edit_info=:id")
+  .get(ensureAuth, getUserEditForm)
+  .post(ensureAuth, putEditInfo);
+router
+  .route("/:id")
+  .get(ensureAuth, getProfile)
+
+router
+  .route("/:id/delete")
+  .get(ensureAuth, deleteProfile);
+
+
 
 module.exports = router;

@@ -4,6 +4,7 @@
   --light-gray: #e0e0e0;
   --dark-gray: #2e2e2e;
   --main-black: #212121;
+  --blue: #007bff;
 }
 *{
   margin: 0;
@@ -197,6 +198,122 @@ form{
   margin-top: 5%;
 }
 /* end forms */
+
+/* profile */
+section.profile header {
+      background: #007bff;
+      height: 18rem;
+      text-align: center;
+    }
+
+    section.profile header h3 {
+      color: #fefefe;
+      font-weight: 400;
+      padding-top: 3rem;
+      margin-bottom: 0;
+    }
+
+    section.profile header h1 {
+      color: #fefefe;
+      font-weight: 800;
+      margin-bottom: 0;
+    }
+
+    section.profile div.user-img {
+      position: relative;
+      padding: 0;
+      margin: 0;
+    }
+
+    section.profile div.container-fluid {
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    section.profile div.container-fluid img.img-fluid {
+      height: 15rem;
+      width: 15rem;
+      border-radius: 50%;
+      border: 7px solid #007bff;
+      margin: 0;
+      padding: 0;
+      display: block;
+      margin: 0 auto;
+    }
+
+    section.profile i.fa-camera {
+      position: absolute;
+      top: 10%;
+      left: 59%;
+      color: rgb(255, 255, 255);
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, .7);
+      font-size: 1.3rem;
+      border-radius: 50%;
+    }
+
+    section.profile main {
+      background-color: #2e2e2e;
+      color: #fefefe;
+    }
+
+    section.profile .pre-info {
+      height: 8rem;
+    }
+
+    section.profile .edit-pro {
+      background-color: #007bff;
+      color: #fefefe;
+    }
+
+    section.profile .user-info {
+      text-align: center;
+    }
+
+    section.profile .user-name {
+      color: #007bff;
+      font-weight: 800;
+    }
+
+    section.profile .user-bio {
+      padding: 1rem;
+      text-align: left;
+      max-width: 55% !important;
+      margin: 0 auto;
+    }
+
+    section.profile h3.user-links {
+      margin: 1rem 0;
+    }
+
+    section.profile h3.user-links button.btn {
+      background-color: #007bff;
+      color: #fefefe;
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.5rem;
+      border-radius: 50% !important;
+    }
+    section.profile h3.user-links p.text-center button.btn{
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      width: 7rem;
+      font-size: 1rem;
+      padding:0;
+    }
+/* end profile */
+
+/* add photo */
+form.add-photo{
+  padding-left: 2rem;
+}
+/* end add photo */
+
 /* footer */
 footer{
   text-align: center;
@@ -208,8 +325,29 @@ footer{
   form{
     width: 100% !important;
   }
+  section.profile i.fa-camera {
+        left: 62%;
+      }
 }
 /* end media 768px */
+/* media 425px */
+
+@media screen and (max-width: 425px) {
+      section.profile .container {
+        padding: 0;
+      }
+
+      section.profile i.fa-camera {
+        left: 70%;
+      }
+
+      section.profile .user-bio {
+        max-width: 70% !important;
+      }
+    }
+
+/* end media 425px */
+
 /* media 414px */
 @media only screen and (max-width: 414px){
   #room-name{
@@ -228,6 +366,13 @@ footer{
   #chat-window{
     height: 65vh;
   }
+  section.profile i.fa-camera {
+        left: 80%;
+      }
+
+      section.profile .user-bio {
+        max-width: 95% !important;
+      }
 }
 /* end media 320px */
 

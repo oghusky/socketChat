@@ -1,0 +1,23 @@
+<h3 class="text-center">All Users</h3>
+<div class="row">
+  <%allUsers.map(user=>{%>
+  <div class="col-lg-3 col-sm-6 my-3">
+    <a href="/user/<%=user._id%>" class="user-card">
+      <div class="card">
+        <%if(user.userimgname.includes(".jpg")){%>
+        <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
+        <%}else if(user.userimgname.includes(".png")){%>
+        <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
+        <%}else if(user.userimgname.includes(".jpeg")){%>
+        <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
+        <%}else{%>
+        <img src="../images/avatar.png" alt="<%=user.userimgname%>" class="card-img-top">
+        <%}%>
+        <div class="card-body">
+          <h5><%=user.username.toUpperCase()%></h5>
+      </div>
+  </div>
+  </a>
+</div>
+<%})%>
+</div>

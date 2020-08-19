@@ -297,6 +297,15 @@ section.profile header {
       font-size: 1.5rem;
       border-radius: 50% !important;
     }
+    section.profile h3.user-links p.text-center button.btn{
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      width: 7rem;
+      font-size: 1rem;
+      padding:0;
+    }
 /* end profile */
 
 /* add photo */

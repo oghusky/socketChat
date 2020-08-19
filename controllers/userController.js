@@ -83,6 +83,31 @@ exports.getUserEditForm = async (req, res) => {
   }
 }
 
+exports.putEditInfo = async (req, res) => {
+  try {
+    await User.findById({ _id: req.params.id })
+      .then(user => {
+        user.username = req.body.username || user.username;
+        user.name = req.body.name || user.name;
+        user.dob = req.body.dob || user.dob;
+        user.city = req.body.city || user.city;
+        user.state = req.body.state || user.state;
+        user.gender = req.body.gender || user.gender;
+        user.orientation = req.body.orientation || user.orientation;
+        user.facebook = req.body.facebook || user.facebook;
+        user.twitter = req.body.twitter || user.twitter;
+        user.instagram = req.body.instagram || user.instagram;
+        user.snapchat = req.body.snapchat || user.snapchat;
+        if (req.body.password !== "" && req.body.password === req.body.password2) {
+          user.password = req.body.password || user.password;
+        }
+        user.save();
+        res.redirect(`/user/${user._id}`);
+      })
+  } catch (err) { }
+
+}
+
 exports.deleteProfile = async (req, res) => {
   const user = await User.findOneAndRemove({ _id: req.params.id });
   if (fs.existsSync(`../public/build/${user.userimgname}`)) {

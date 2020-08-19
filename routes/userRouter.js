@@ -5,6 +5,7 @@ const {
   getAddPhoto,
   getUserEditForm,
   putAddPhoto,
+  putEditInfo,
   deleteProfile
 } = require("../controllers/userController");
 const { ensureAuth } = require("../config/auth");
@@ -20,8 +21,8 @@ router
 
 router
   .route("/edit_info=:id")
-  .get(ensureAuth, getUserEditForm);
-
+  .get(ensureAuth, getUserEditForm)
+  .post(ensureAuth, putEditInfo);
 router
   .route("/:id")
   .get(ensureAuth, getProfile)

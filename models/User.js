@@ -19,6 +19,29 @@ const userSchema = new mongoose.Schema({
     trim: true,
     require: true
   },
+  age: {
+    type: Number
+  },
+  city: {
+    type: String,
+    trim: true
+  },
+  state: {
+    type: String,
+    trim: true
+  },
+  gender: {
+    type: String,
+    trim: true
+  },
+  dob: {
+    type: Date,
+    default: Date.now
+  },
+  orientation: {
+    type: String,
+    trim: true
+  },
   password: {
     type: String,
     trim: true,
@@ -31,6 +54,26 @@ const userSchema = new mongoose.Schema({
   userimgname: {
     data: Buffer,
     type: String,
+  },
+  instagram: {
+    type: String,
+    trim: true,
+    lowercase: true
+  },
+  facebook: {
+    type: String,
+    trim: true,
+    lowercase: true
+  },
+  twitter: {
+    type: String,
+    trim: true,
+    lowercase: true
+  },
+  snapchat: {
+    type: String,
+    trim: true,
+    lowercase: true
   },
   messages: [
     {

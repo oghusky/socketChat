@@ -94,7 +94,7 @@ exports.postRegister = (req, res) => {
 };
 exports.postLogin = (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/chat",
+    successRedirect: "/user/all_users",
     failureRedirect: "/login",
   })(req, res, next);
 };

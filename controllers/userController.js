@@ -1,11 +1,19 @@
-const User = require("../models/User");
+const User = require("../models/User"),
+  { imageMin } = require("../gulpfile"),
+  fs = require('fs'),
+  del = require('del');
+
+const rmImg = async (img) => {
+  await del([`public/build/${img}`, '!public/build']);
+}
 
 exports.getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find();
-    res.status(200).send({
+    res.status(200).render("user/all-users", {
       path: "/all_users",
-      allUsers
+      allUsers,
+      user: req.user
     });
   } catch (err) {
     res.status(404).send({
@@ -42,11 +50,20 @@ exports.getAddPhoto = async (req, res) => {
   }
 }
 
-exports.putAddPhotod = async (req, res) => {
+exports.putAddPhoto = async (req, res) => {
   try {
     await User.findById({ _id: req.user.id })
       .then(user => {
-        console.log(user)
+        rmImg(`/images/${user.userimgname}`)
+        const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
+        const userimgname = userimg === "" ? "" : userimg.name;
+        if (userimg !== "") {
+          user.userimgname = `${user.username}_${userimgname}`;
+          req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
+          imageMin(`${user.username}_${userimgname}`);
+        }
+        user.save();
+        res.redirect(`/user/${user._id}`);
       })
   } catch (err) { }
 }
@@ -64,4 +81,37 @@ exports.getUserEditForm = async (req, res) => {
       path: "/505"
     })
   }
+}
+
+exports.putEditInfo = async (req, res) => {
+  try {
+    await User.findById({ _id: req.params.id })
+      .then(user => {
+        user.username = req.body.username || user.username;
+        user.name = req.body.name || user.name;
+        user.dob = req.body.dob || user.dob;
+        user.city = req.body.city || user.city;
+        user.state = req.body.state || user.state;
+        user.gender = req.body.gender || user.gender;
+        user.orientation = req.body.orientation || user.orientation;
+        user.facebook = req.body.facebook || user.facebook;
+        user.twitter = req.body.twitter || user.twitter;
+        user.instagram = req.body.instagram || user.instagram;
+        user.snapchat = req.body.snapchat || user.snapchat;
+        if (req.body.password !== "" && req.body.password === req.body.password2) {
+          user.password = req.body.password || user.password;
+        }
+        user.save();
+        res.redirect(`/user/${user._id}`);
+      })
+  } catch (err) { }
+
+}
+
+exports.deleteProfile = async (req, res) => {
+  const user = await User.findOneAndRemove({ _id: req.params.id });
+  if (fs.existsSync(`../public/build/${user.userimgname}`)) {
+    rmImg(`${user.userimgname}`);
+  }
+  user.remove();
 }

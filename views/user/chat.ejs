@@ -1,6 +1,7 @@
 <section id="chat-box">
   <div>
     <span id="user-image"><%= user.userimgname %></span>
+    <span id="current-user" style="display: none;"><%= user.id %></span>
   </div>
   <p class="text-center"><button class="btn btn-primary btn-sm"><a href="/chat" id="leave-btn">LEAVE</a></button></p>
   <%-include("../partials/chatroom") -%>

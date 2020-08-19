@@ -94,14 +94,14 @@ io
         .emit("newChatter", username, userMap);
     });
     // on message grab roomName and message
-    socket.on("message", (roomName, message, username, userimg) => {
+    socket.on("message", (roomName, message, username, userimg, id) => {
       // have to specify mainspace
       // have to specify room 
       // and grab message
       io
         .of("/mainspace")
         .to(roomName)
-        .emit("chat-message", message, username, userimg, userId);
+        .emit("chat-message", message, username, userimg, id);
     });
     socket.on("doc-change", (roomName, data) => {
       io

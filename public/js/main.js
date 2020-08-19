@@ -50,8 +50,8 @@ if (splitPath.includes("chat")) {
     bottomChat = document.querySelector("#bottom-window"),
     roomCount = document.querySelector("#room-count"),
     leaveBtn = document.querySelector("#leave-btn"),
+    currentUser = document.querySelector("#current-user"),
     chatSubmit = document.querySelector("#chat-submit");
-
   if (chatSubmit === null) {
     console.log("bloop")
   } else {
@@ -79,41 +79,47 @@ if (splitPath.includes("chat")) {
   socket.on("shift-doc", () => {
     chatWindow.scrollTop = bottomChat.getBoundingClientRect().top;
   });
-  socket.on("chat-message", (message, user, img) => {
+  socket.on("chat-message", (message, user, img, id) => {
     const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../build/images/${img}`;
     if (user === userName) {
       output.innerHTML += `
-    <div class="message-div clearfix">
-    <div class="message-wrap float-right">
+      
+      <div class="message-div clearfix">
+      <div class="message-wrap float-right">
           <div class="msg-inline-wrap">
-            <div class="msg-para-div">
-              <p style="color: #007bff;"><small><b>${user}</b></small></p>
+          <div class="msg-para-div">
+          <p style="color: #007bff;"><small><b>${user}</b></small></p>
               <p><small>${message}</small></p>
+              </div>
+              <div class="msg-img-wrap">
+        <a href="/user/${id}">
+        <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
+        </a>
+              </div>
+              </div>
             </div>
-            <div class="msg-img-wrap">
-              <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
             </div>
-          </div>
-        </div>
-        </div>
-  `;
+            `;
     } else {
       const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../build/images/${img}`;
       output.innerHTML += `
-      <div class="message-div clearfix">
+            <div class="message-div clearfix">
+            
         <div class="message-wrap float-left">
           <div class="msg-inline-wrap">
             <div class="msg-img-wrap">
-              <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
+            <a href="/user/${id}">
+        <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
+        </a>
             </div>
             <div class="msg-para-div">
-              <p style="color: #007bff;"><small><b>${user}</b></small></p>
-              <p><small>${message}</small></p>
+            <p style="color: #007bff;"><small><b>${user}</b></small></p>
+            <p><small>${message}</small></p>
             </div>
-          </div>
-        </div>
-      </div>
-        `;
+            </div>
+            </div>
+            </div>
+            `;
     }
   });
   function leaveRoom() {
@@ -123,7 +129,7 @@ if (splitPath.includes("chat")) {
     let messageInput = document.querySelector("#message-input");
     if (messageInput.value !== "" && messageInput.value.length <= 120) {
       const message = messageInput.value;
-      socket.emit("message", roomName, message, userName, userImg);
+      socket.emit("message", roomName, message, userName, userImg, currentUser.innerText);
       socket.emit("doc-change", roomName)
       messageInput.value = "";
     }

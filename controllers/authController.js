@@ -66,11 +66,25 @@ exports.postRegister = (req, res) => {
       path: "/register",
       title: "Uh Oh",
       user: req.user,
-      error: "User name cannot contain spaces"
+      error: "* User name cannot contain spaces"
+    })
+  }
+  if (username.match(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{5,29}$/igm) === null) {
+    return res.render("auth/register", {
+      path: "/register",
+      title: "Uh Oh",
+      user: req.user,
+      error: `* Username cannot be less than 6 characters
+      * Username can only contain a "." or a "_" symbol`
     })
   }
   if (!username || !name || !email || !password || !password2) {
-    req.flash("error", "Please complete all fields")
+    return res.render("auth/register", {
+      path: "/register",
+      title: "Uh Oh",
+      user: req.user,
+      error: "All fields must be filled"
+    })
   }
   if (username, name, email, password, password2) {
     if (isValid(password) && password === password2) {
@@ -79,10 +93,6 @@ exports.postRegister = (req, res) => {
           // This user is already registered. Return.
           if (user) {
             return res.render("auth/register", {
-              username,
-              name,
-              email,
-              password,
               title: "Uh Oh",
               user: req.user,
               error: "User name already exists",

@@ -21,4 +21,5 @@ router.route("/register")
 router.route("/logout")
   .get(getLogout);
 
+
 module.exports = router;

@@ -9,4 +9,5 @@ router
   .route("/:roomName")
   .get(ensureAuth, getRoomNames);
 
+
 module.exports = router;

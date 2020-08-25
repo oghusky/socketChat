@@ -6,7 +6,8 @@ const {
   getUserEditForm,
   putAddPhoto,
   putEditInfo,
-  deleteProfile
+  deleteProfile,
+  deleteConfirm
 } = require("../controllers/userController");
 const { ensureAuth } = require("../config/auth");
 
@@ -23,14 +24,18 @@ router
   .route("/edit_info=:id")
   .get(ensureAuth, getUserEditForm)
   .post(ensureAuth, putEditInfo);
+
+router
+  .route("/delete=:id")
+  .get(ensureAuth, deleteProfile);
+
 router
   .route("/:id")
   .get(ensureAuth, getProfile)
 
-router
-  .route("/:id/delete")
-  .get(ensureAuth, deleteProfile);
-
+// router
+//   .route("/:id/confirm")
+//   .get(ensureAuth, deleteConfirm);
 
 
 module.exports = router;

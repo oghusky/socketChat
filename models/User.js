@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
     trim: true
   },
   dob: {
-    type: Date,
-    default: Date.now
+    type: Number,
+    default: 18
   },
   orientation: {
     type: String,

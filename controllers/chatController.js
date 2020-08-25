@@ -1,20 +1,20 @@
-const User = require("../models/User");
-
 // array of room names
-// const chatRooms = [
-//   "cosplayers", "business owners",
-//   "lobby", "20's", "30's",
-//   "40's", "50's", "flirting",
-//   "african american", "asian",
-//   "latinos", "lgbtq", "gamers",
-//   "sports", "gothic", "emo", "newbies"
-// ]
 const chatRooms = [
-  "thisroom",
-  "thatroom",
-  "yourroom",
-  "myroom"
+  "business owners",
+  "sports",
+  "anime",
+  "lobby", "20's", "30's",
+  "40's", "50's", "flirting",
+  "african american", "asian",
+  "latinos", "lgbtq", "gamers",
+  "sports", "gothic", "emo", "newbies"
 ]
+// const chatRooms = [
+//   "thisroom",
+//   "thatroom",
+//   "yourroom",
+//   "myroom"
+// ]
 
 
 exports.getRoomNames = (req, res) => {
@@ -30,9 +30,10 @@ exports.getRoomNames = (req, res) => {
       });
     }
   } catch (err) {
-    res.status(500).render("error/error500", {
-      path: "/500"
-    })
+    // res.status(500).render("error/error500", {
+    //   path: "/500"
+    // })
+    res.redirect("/error")
   }
 };
 exports.getChosenChat = (req, res) => {
@@ -45,8 +46,9 @@ exports.getChosenChat = (req, res) => {
       path: "/chat"
     });
   } catch (err) {
-    res.status(500).render("error/error500", {
-      path: "/505"
-    });
+    // res.status(500).render("error/error500", {
+    //   path: "/505"
+    // });
+    res.redirect("/error")
   }
 };

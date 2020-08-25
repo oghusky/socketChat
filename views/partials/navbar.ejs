@@ -27,6 +27,22 @@
     </ul>
   </div>
 </nav>
-<%if(path === "/chat"){%>
-      <h4 id="room-name"><%= roomName %> <span id="room-count"></span></h3>
-        <%}%>
+<div class="container">
+  <!-- error &success show up as empty arrays -->
+  <!-- setting it >0 ensures theres something in there -->
+  <% if(success && success.length > 0){ %>
+      <div class="alert alert-success" role="alert">
+        <%= success %>
+        <% console.log("Success:" + success.length) %>
+      </div>
+      <% } %>
+      <% if(error && error.length > 0){ %>
+      <div class="alert alert-danger" role="alert">
+        <%= error %>
+        <% console.log("Error: " + error.length) %>
+      </div>
+      <% } %>
+  </div>
+  <%if(path === "/chat"){%>
+  <h4 id="room-name"><%= roomName %> <span id="room-count"></span></h3>
+    <%}%>

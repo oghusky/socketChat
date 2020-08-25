@@ -4,10 +4,11 @@ const splitPath = pathname.split("/");
 
 // checking for register path
 if (splitPath.includes("register")) {
+  console.log(pathname);
   // when submit button is clicked
   const password = document.querySelector("input[name='password']");
   const passwordTwo = document.querySelector("input[name='password2']");
-  document.querySelector(".btn").addEventListener("click", (e) => {
+  document.querySelector("#register-btn").addEventListener("click", (e) => {
     const pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,10}$/;
     // checks if password
     if (password.value === "" || !password.value.match(pwd)) {
@@ -31,7 +32,8 @@ if (splitPath.includes("register")) {
 function showErrorDiv(str) {
   // div to show errors
   const errorDiv = document.createElement("div");
-  errorDiv.classList.add("text-danger", "p-3");
+  errorDiv.classList.add("p-3");
+  errorDiv.style.color = "#fefefe";
   errorDiv.innerHTML = str;
   setTimeout(() => {
     document.querySelector("form[class='container']").removeChild(errorDiv)
@@ -104,7 +106,6 @@ if (splitPath.includes("chat")) {
       const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../build/images/${img}`;
       output.innerHTML += `
             <div class="message-div clearfix">
-            
         <div class="message-wrap float-left">
           <div class="msg-inline-wrap">
             <div class="msg-img-wrap">

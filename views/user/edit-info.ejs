@@ -11,7 +11,12 @@
       value="<%=currentUser.name%>" />
   </div>
   <h5>Age:</h5>
-  <input class="mb-3 pr-3" type="date" name="dob" value="2020-01-01" max="2002-08-18" min="1900-01-01">
+  <select class="custom-select" name="dob">
+    <option selected disabled>Choose...</option>
+    <% for(var i=18;i<121; i++){%>
+    <option value="<%=i%>"><%=i%></option>
+    <%} %>
+  </select>
   <div class="gender-div">
     <h5>Gender:</h5>
     <select class="custom-select" id="validationCustom04" name="gender">
@@ -94,7 +99,7 @@
   <a href="/user/<%= user.id %>">Cancel</a></p>
   <p class="btn-para"><button class="btn btn-warning">UPDATE</button>
 </form>
-<form class="container mt-0" action="user/<%=currentUser.id%>" method="GET">
+<form class="container mt-0" action="/user/delete=<%=currentUser.id%>" method="GET">
   <p class="text-center"><button class="btn-danger btn">DELETE</button></p>
 </form>
 <%}%>

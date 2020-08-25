@@ -59,6 +59,12 @@ span.navbar-toggler i.fas{
 }
 /* end welcome page */
 /* all users */
+div.allusers-row div.user-card-div{
+  width: 50%;
+}
+div.allusers-row div.user-card-div div.img-div{
+  height: 13rem;
+} 
 div.allusers-card{
   background: var(--dark-gray);
   color: var(--blue);
@@ -66,6 +72,16 @@ div.allusers-card{
 div.allusers-row a,
 div.allusers-row a:hover{
   text-decoration: none;
+}
+div.allusers-card div.card-body {
+  background-color: var(--main-black)
+}
+div.allusers-card div.card-body h5.card-title{
+  margin-bottom: 0;
+}
+div.allusers-card div.card-body h5.card-title,
+div.allusers-card div.card-body p.card-text{
+  font-size: .8rem !important;
 }
 /* end all users */
 /* choose chat */
@@ -210,7 +226,7 @@ form{
 
 /* profile */
 section.profile header {
-      background: #007bff;
+      background: var(--blue);
       height: 18rem;
       text-align: center;
     }
@@ -242,17 +258,15 @@ section.profile header {
       transform: translateY(-50%);
     }
 
-    section.profile div.container-fluid img.img-fluid {
-      height: 15rem;
-      width: 15rem;
-      border-radius: 50%;
-      border: 7px solid #007bff;
+    div.user-img div.container-fluid img{
+      border: 7px solid var(--blue);
       margin: 0;
       padding: 0;
       display: block;
       margin: 0 auto;
-    }
-
+      border-radius: 50% !important;
+      width: 15rem;
+  }
     section.profile i.fa-camera {
       position: absolute;
       top: 10%;
@@ -270,11 +284,11 @@ section.profile header {
     }
 
     section.profile .pre-info {
-      height: 8rem;
+      height: 9rem;
     }
 
     section.profile .edit-pro {
-      background-color: #007bff;
+      background-color: var(--blue);
       color: #fefefe;
     }
 
@@ -283,7 +297,7 @@ section.profile header {
     }
 
     section.profile .user-name {
-      color: #007bff;
+      color: var(--blue);
       font-weight: 800;
     }
 
@@ -299,7 +313,7 @@ section.profile header {
     }
 
     section.profile h3.user-links button.btn {
-      background-color: #007bff;
+      background-color: var(--blue);
       color: #fefefe;
       width: 3rem;
       height: 3rem;
@@ -329,18 +343,38 @@ footer{
   background-color: var(--main-black)
 }
 /* end footer */
+/* media 1024px */
+@media only screen and (max-width: 1024px){
+  div.allusers-row div.user-card-div div.img-div{
+    height: 17rem;
+  }
+}
+/* media 995px */
+@media only screen and (max-width: 995px){
+  div.allusers-row div.user-card-div div.img-div{
+    height: 15rem;
+  }
+}
 /* media 768px */
 @media only screen and (max-width: 768px){
   form{
     width: 100% !important;
   }
   section.profile i.fa-camera {
-        left: 62%;
-      }
+    left: 62%;
+  }
+  div.allusers-row div.user-card-div div.img-div{
+    height: 25rem;
+  } 
 }
 /* end media 768px */
+/* media 450px */
+@media screen and (max-width: 450px) {
+  div.allusers-row div.user-card-div div.img-div{
+    height: 16rem;
+  } 
+}
 /* media 425px */
-
 @media screen and (max-width: 425px) {
       section.profile .container {
         padding: 0;
@@ -353,6 +387,9 @@ footer{
       section.profile .user-bio {
         max-width: 70% !important;
       }
+      div.allusers-row div.user-card-div div.img-div{
+        height: 12rem;
+      } 
     }
 
 /* end media 425px */

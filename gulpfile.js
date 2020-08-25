@@ -7,7 +7,6 @@ const rmImg = async (img) => {
   await del([`public/images/${img}`, '!public/images']);
 }
 
-
 exports.imageMin = (img) => {
   src(`public/images/${img}`)
     .pipe(imagemin())

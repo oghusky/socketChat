@@ -1,24 +1,26 @@
-<h3 class="text-center">All Users</h3>
-<div class="row allusers-row">
-  <%allUsers.map(user=>{%>
-  <div class="col-lg-3 col-sm-6 my-3 pb-3 px-1">
+<h3 class="text-center">Newest Users</h3>
+<div class="row allusers-row no-gutters">
+  <%allUsers.reverse().slice(0,40).map(user=>{%>
+  <div class="col-lg-3 col-sm-6 my-3 pb-5 px-1 user-card-div">
     <a href="/user/<%=user._id%>" class="user-card">
       <div class="card allusers-card">
-        <%if(user.userimgname.includes(".jpg")){%>
-        <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
-        <%}else if(user.userimgname.includes(".png")){%>
-        <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
-        <%}else if(user.userimgname.includes(".jpeg")){%>
-        <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
-        <%}else{%>
-        <img src="../images/avatar.png" alt="<%=user.userimgname%>" class="card-img-top">
-        <%}%>
+        <div class="img-div">
+          <%if(user.userimgname.includes(".jpg")){%>
+          <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
+          <%}else if(user.userimgname.includes(".png")){%>
+          <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
+          <%}else if(user.userimgname.includes(".jpeg")){%>
+          <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
+          <%}else{%>
+          <img src="../images/avatar.png" alt="<%=user.userimgname%>" class="card-img-top">
+          <%}%>
+      </div>
         <div class="card-body">
           <h5 class="card-title"><%=user.username.toUpperCase()%> <%=user.gender%></h5>
-        <p class="card-text"><%=user.city%>, <%=user.state%></p>
+          <p class="card-text"><%=user.state%></p>
+        </div>
       </div>
+    </a>
   </div>
-  </a>
-</div>
-<%})%>
+  <%})%>
 </div>

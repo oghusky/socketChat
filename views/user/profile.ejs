@@ -29,7 +29,8 @@
       </p>
       <div class="user-info">
         <h2 class="user-name mb-0"><%= currentUser.username %></h2>
-        <p><%= currentUser.name %> <span class="mx-1 pb-0"><%=currentUser.dob.toDateString()%></span></p>
+        <p><%= currentUser.name %> <span
+            class="mx-1 pb-0"><%=Math.floor(((new Date()).getTime() - currentUser.dob)/(1000*60*60*24*365))%></span></p>
         <p class="mb-0"><span><%=currentUser.gender%>,
             <%=currentUser.orientation%></span></p>
         <p class="my-0 py-0"><%=currentUser.city %>, <%= currentUser.state %></p>

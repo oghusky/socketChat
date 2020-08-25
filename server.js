@@ -1,22 +1,29 @@
 require("dotenv").config();
 // dependecies
 const express = require("express"),
-  path = require("path"),
-  cors = require("cors"),
-  expressSanitizer = require("express-sanitizer"),
   app = express(),
+  cors = require("cors"),
+  path = require("path"),
   socket = require("socket.io"),
-  expressLayouts = require("express-ejs-layouts"),
-  upload = require("express-fileupload"),
   mongoose = require("mongoose"),
   passport = require("passport"),
-  session = require('express-session');
+  flash = require("connect-flash"),
+  session = require('express-session'),
+  upload = require("express-fileupload"),
+  expressSanitizer = require("express-sanitizer"),
+  expressLayouts = require("express-ejs-layouts");
 
+app.use(flash());
 // passport setup
 require("./config/passport")(passport);
 
 //Connect to mongo
-mongoose.connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: true
+})
   // mongoose.connect("mongodb://localhost:27017/socketChat", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => console.log("Mongo Connect"))
   .catch(err => console.log(err));
@@ -39,7 +46,12 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
+  next();
+})
 // passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -54,14 +66,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 const authRoute = require("./routes/authRouter");
 const chatRoute = require("./routes/chatRouter");
 const userRoute = require("./routes/userRouter");
-const messageRoute = require("./routes/messageRouter");
-
+const errorRoute = require("./routes/errorRouter");
 // use routes
 app.use("/", authRoute);
 app.use("/chat", chatRoute);
 app.use("/user", userRoute);
-app.use("/messages", messageRoute);
-
+app.use("/error", errorRoute);
+app.use("/*", errorRoute);
 // PORT
 const PORT = process.env.PORT || 3000;
 // Listening
@@ -98,10 +109,28 @@ io
       // have to specify mainspace
       // have to specify room 
       // and grab message
-      io
-        .of("/mainspace")
-        .to(roomName)
-        .emit("chat-message", message, username, userimg, id);
+      if (message.includes("nigger") || message.includes("fag") || message.includes("faggot") || message.includes("nigga")) {
+        io
+          .of("/mainspace")
+          .to(roomName)
+          .emit("chat-message", "^^^ Tried to say a bad word", username, userimg, id);
+      } else if (message.length > 120) {
+        io
+          .of("/mainspace")
+          .to(roomName)
+          .emit("chat-message", "^^^ Tried to send a long message", username, userimg, id);
+      } else if (message.includes("http") || message.includes(".com")) {
+        io
+          .of("/mainspace")
+          .to(roomName)
+          .emit("chat-message", "^^^ Tried to post a link", username, userimg, id);
+      }
+      else {
+        io
+          .of("/mainspace")
+          .to(roomName)
+          .emit("chat-message", message, username, userimg, id);
+      }
     });
     socket.on("doc-change", (roomName, data) => {
       io

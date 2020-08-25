@@ -1,5 +1,5 @@
-const LocalStrategy = require("passport-local").Strategy;
-mongoose = require("mongoose"),
+const LocalStrategy = require("passport-local").Strategy,
+  mongoose = require("mongoose"),
   bcrypt = require("bcryptjs"),
   User = require("../models/User");
 

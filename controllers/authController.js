@@ -9,12 +9,17 @@ exports.getIndex = (req, res) => {
   try {
     res.status(200).render("auth/welcome", {
       path: "/welcome",
-      user: req.user
+      title: "welcome",
+      user: req.user,
     });
+
   } catch (err) {
-    res.status(500).render("error/error500", {
-      path: "/500"
-    });
+    // res.status(500).render("error/error500", {
+    //   path: "/500",
+    //   title: "500"
+    // });
+    res.redirect("/error")
+    req.flash("error", "Uh Oh Something went wrong");
   }
 };
 
@@ -22,25 +27,33 @@ exports.getRegister = (req, res) => {
   try {
     res.status(200).render("auth/register", {
       path: "/register",
+      title: "/register",
       user: req.user
     });
   } catch (err) {
-    res.status(500).render("error/error500", {
-      path: "/500"
-    });
+    // res.status(500).render("error/error500", {
+    //   path: "/500",
+    //   title: "500"
+    // });
+    res.redirect("/error")
+    req.flash("error", "Uh Oh Something went wrong")
   }
 };
 
 exports.getLogin = (req, res) => {
   try {
     res.status(200).render("auth/login", {
-      path: "/login",
+      path: "login",
+      title: "login",
       user: req.user
     });
   } catch (err) {
-    res.status(500).render("error/error500", {
-      path: "/500"
-    });
+    // res.status(500).render("error/error500", {
+    //   path: "/500",
+    //   title: "500"
+    // });
+    res.redirect("/error")
+    req.flash("error", "Uh Oh Something went wrong")
   }
 };
 
@@ -48,19 +61,32 @@ exports.postRegister = (req, res) => {
   const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
   const userimgname = userimg === "" ? "" : userimg.name;
   const { username, name, email, password, password2 } = req.body;
-  if (!username || !name || !email || !password || !password2) {
-    console.log("Please complete all fields");
+  if (username.includes(" ")) {
+    return res.render("auth/register", {
+      path: "/register",
+      title: "Uh Oh",
+      user: req.user,
+      error: "User name cannot contain spaces"
+    })
   }
-
+  if (!username || !name || !email || !password || !password2) {
+    req.flash("error", "Please complete all fields")
+  }
   if (username, name, email, password, password2) {
     if (isValid(password) && password === password2) {
       User.findOne({ username })
         .then(user => {
           // This user is already registered. Return.
           if (user) {
-            errors.push({ msg: "Name already in use" })
             return res.render("auth/register", {
-              errCheck, username, name, email, password
+              username,
+              name,
+              email,
+              password,
+              title: "Uh Oh",
+              user: req.user,
+              error: "User name already exists",
+              path: "User already exists"
             });
           }
           // This user is not registered. Continue.
@@ -80,10 +106,11 @@ exports.postRegister = (req, res) => {
               newUser.password = hash;
               newUser.save()
                 .then(user => {
-                  return res.redirect("/login");
+                  req.flash("success", `${username} registered`)
+                  return res.redirect(`/user/${user.id}`);
                 })
                 .catch(err => {
-                  console.log(err);
+                  req.flash("error", "Uh Oh Something went wrong")
                   return res.redirect("/register")
                 });
             })
@@ -96,6 +123,7 @@ exports.postLogin = (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/user/all_users",
     failureRedirect: "/login",
+    failureFlash: "The information entered doesn't match"
   })(req, res, next);
 };
 

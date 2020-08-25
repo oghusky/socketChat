@@ -7,18 +7,26 @@ const rmImg = async (img) => {
   await del([`public/build/${img}`, '!public/build']);
 }
 
+const rmDeletedUserImg = async (img) => {
+  await del([`public/build/images/${img}`, `!public/build/images`])
+}
+
 exports.getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find();
     res.status(200).render("user/all-users", {
       path: "/all_users",
+      title: "All Users",
       allUsers,
       user: req.user
     });
   } catch (err) {
-    res.status(404).send({
-      path: "/404"
-    });
+    // res.status(404).render("error/error404", {
+    //   path: "/500",
+    //   title: "500"
+    // });
+    res.redirect("/error")
+    req.flash("error", "Uh Oh Something went wrong")
   }
 };
 
@@ -27,13 +35,17 @@ exports.getProfile = async (req, res) => {
     const currentUser = await User.findById({ _id: req.params.id });
     res.status(200).render("user/profile", {
       path: "/profile/:id",
+      title: currentUser.username,
       currentUser,
       user: req.user
     })
   } catch (err) {
-    res.status(404).render("error/error404", {
-      path: "/404"
-    })
+    // res.status(404).render("error/error404", {
+    //   path: "/404",
+    //   title: "404"
+    // })
+    res.redirect("/error")
+    req.flash("error", "User doesn't exist")
   }
 };
 
@@ -42,30 +54,44 @@ exports.getAddPhoto = async (req, res) => {
     const currentUser = await User.findById({ _id: req.params.id })
     res.status(200).render("user/add-photo", {
       path: "/add-photo",
+      title: "Add A Photo",
       user: req.user,
       currentUser
     });
   } catch (err) {
-    res.status(404).render("error/error404")
+    // res.status(404).render("error/error404", {
+    //   path: "/500",
+    //   title: "500"
+    // });
+    res.redirect("/error");
+    req.flash("error", "Uh Oh Something went wrong")
   }
 }
 
 exports.putAddPhoto = async (req, res) => {
   try {
-    await User.findById({ _id: req.user.id })
-      .then(user => {
-        rmImg(`/images/${user.userimgname}`)
-        const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
+    const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
+    await User.findOneAndUpdate({ _id: req.user.id }, { new: true }, async (err, user) => {
+      if (!err) {
+        await rmImg(`/images/${user.userimgname}`)
         const userimgname = userimg === "" ? "" : userimg.name;
         if (userimg !== "") {
           user.userimgname = `${user.username}_${userimgname}`;
           req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
           imageMin(`${user.username}_${userimgname}`);
         }
-        user.save();
-        res.redirect(`/user/${user._id}`);
-      })
-  } catch (err) { }
+      }
+      await user.save();
+      res.redirect(`/user/${user.id}`);
+    })
+  } catch (err) {
+    // res.status(500).render("error/error500", {
+    //   path: "/500",
+    //   title: "500"
+    // });
+    res.redirect("/error")
+    req.flash("error", "Uh Oh Something went wrong")
+  }
 }
 
 exports.getUserEditForm = async (req, res) => {
@@ -73,13 +99,17 @@ exports.getUserEditForm = async (req, res) => {
     const currentUser = await User.findById({ _id: req.params.id });
     res.status(200).render("user/edit-info", {
       path: "/edit_info",
+      title: "Edit Info",
       user: req.user,
       currentUser
     })
   } catch (err) {
-    res.status(500).render("error/error505", {
-      path: "/505"
-    })
+    // res.status(500).render("error/error505", {
+    //   path: "/505",
+    //   title: "500",
+    // })
+    res.redirect("/error")
+    req.flash("error", "Uh Oh Something went wrong");
   }
 }
 
@@ -104,14 +134,34 @@ exports.putEditInfo = async (req, res) => {
         user.save();
         res.redirect(`/user/${user._id}`);
       })
-  } catch (err) { }
+  } catch (err) {
+    // res.status(500).render("error/error500", {
+    //   path: "/500",
+    //   title: "500"
+    // })
+    res.redirect("/error")
+    req.flash("error", "Uh Oh Something went wrong")
+  }
 
 }
 
+
+exports.deleteConfirm = async (req, res) => {
+  const user = await User.findOne({ _id: req.params.id });
+}
+
 exports.deleteProfile = async (req, res) => {
-  const user = await User.findOneAndRemove({ _id: req.params.id });
-  if (fs.existsSync(`../public/build/${user.userimgname}`)) {
-    rmImg(`${user.userimgname}`);
+  try {
+    const user = await User.findOneAndRemove({ _id: req.params.id });
+    rmDeletedUserImg(`${user.userimgname}`);
+    user.remove();
+    res.redirect("/chat");
+  } catch (err) {
+    // res.status.render("error/error500", {
+    //   path: "/500",
+    //   title: "500"
+    // })
+    res.redirect("/error");
+    req.flash("error", "Uh Oh Something went wrong")
   }
-  user.remove();
 }

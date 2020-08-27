@@ -9,6 +9,7 @@ const express = require("express"),
   passport = require("passport"),
   flash = require("connect-flash"),
   session = require('express-session'),
+  cloudinary = require('cloudinary').v2,
   upload = require("express-fileupload"),
   expressSanitizer = require("express-sanitizer"),
   expressLayouts = require("express-ejs-layouts");
@@ -24,9 +25,15 @@ mongoose.connect(process.env.mongoURI, {
   useCreateIndex: true,
   useFindAndModify: true
 })
-  // mongoose.connect("mongodb://localhost:27017/socketChat", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => console.log("Mongo Connect"))
   .catch(err => console.log(err));
+
+// cloudinary setup
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET
+});
 
 // ejs setup
 app.use(expressLayouts);

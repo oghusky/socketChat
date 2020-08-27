@@ -1,4 +1,5 @@
 const User = require("../models/User"),
+  cloudinary = require("cloudinary").v2,
   { imageMin } = require("../gulpfile"),
   fs = require('fs'),
   del = require('del');

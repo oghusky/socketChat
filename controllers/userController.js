@@ -61,27 +61,34 @@ exports.putAddPhoto = async (req, res) => {
   try {
     const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
     await User.findOneAndUpdate({ _id: req.user.id }, { new: true }, async (err, user) => {
-      if (!err) {
+      if (!err && user.photos.length < 4) {
         const userimgname = userimg === "" ? "" : userimg.name;
         if (userimg !== "") {
           user.userimgname = `${user.username}_${userimgname}`;
           req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
           imageMin(`${user.username}_${userimgname}`)
-          fs.exists(`./public/build/images//${user.username}_${userimgname}`, (file) => {
-            if (file) {
-              cloudinary.uploader.upload(`./public/build/images/${user.username}_${userimgname}`, async (err, data) => {
-                if (err) console.log(err)
-                else {
-                  user.photos.push({ url: data.url });
-                  user.save();
-                  rmDeletedUserImg(`/${user.username}_${userimgname}`)
+            .then(() => {
+              fs.exists(`./public/build/images//${user.username}_${userimgname}`, (file) => {
+                if (file) {
+                  cloudinary.uploader.upload(`./public/build/images/${user.username}_${userimgname}`, async (err, data) => {
+                    if (err) console.log(err)
+                    else {
+                      user.photos.push({ url: data.url });
+                      user.save();
+                    }
+                  })
                 }
               })
-            }
-          })
+            }).then(async () => {
+              await rmDeletedUserImg(`${user.username}_${userimgname}`)
+            })
         }
+        res.redirect(`/user/${user.id}`);
       }
-      res.redirect(`/user/${user.id}`);
+      else {
+        res.redirect(`/user/${user.id}`)
+        req.flash("error", "You have reached your photo limit");
+      }
     })
   } catch (err) {
     res.redirect("/error")

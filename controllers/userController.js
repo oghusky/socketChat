@@ -21,10 +21,6 @@ exports.getAllUsers = async (req, res) => {
       user: req.user
     });
   } catch (err) {
-    // res.status(404).render("error/error404", {
-    //   path: "/500",
-    //   title: "500"
-    // });
     res.redirect("/error")
     req.flash("error", "Uh Oh Something went wrong")
   }
@@ -40,10 +36,6 @@ exports.getProfile = async (req, res) => {
       user: req.user
     })
   } catch (err) {
-    // res.status(404).render("error/error404", {
-    //   path: "/404",
-    //   title: "404"
-    // })
     res.redirect("/error")
     req.flash("error", "User doesn't exist")
   }
@@ -59,10 +51,6 @@ exports.getAddPhoto = async (req, res) => {
       currentUser
     });
   } catch (err) {
-    // res.status(404).render("error/error404", {
-    //   path: "/500",
-    //   title: "500"
-    // });
     res.redirect("/error");
     req.flash("error", "Uh Oh Something went wrong")
   }
@@ -85,10 +73,6 @@ exports.putAddPhoto = async (req, res) => {
       res.redirect(`/user/${user.id}`);
     })
   } catch (err) {
-    // res.status(500).render("error/error500", {
-    //   path: "/500",
-    //   title: "500"
-    // });
     res.redirect("/error")
     req.flash("error", "Uh Oh Something went wrong")
   }
@@ -104,10 +88,6 @@ exports.getUserEditForm = async (req, res) => {
       currentUser
     })
   } catch (err) {
-    // res.status(500).render("error/error505", {
-    //   path: "/505",
-    //   title: "500",
-    // })
     res.redirect("/error")
     req.flash("error", "Uh Oh Something went wrong");
   }
@@ -135,10 +115,6 @@ exports.putEditInfo = async (req, res) => {
         res.redirect(`/user/${user._id}`);
       })
   } catch (err) {
-    // res.status(500).render("error/error500", {
-    //   path: "/500",
-    //   title: "500"
-    // })
     res.redirect("/error")
     req.flash("error", "Uh Oh Something went wrong")
   }
@@ -157,10 +133,6 @@ exports.deleteProfile = async (req, res) => {
     user.remove();
     res.redirect("/chat");
   } catch (err) {
-    // res.status.render("error/error500", {
-    //   path: "/500",
-    //   title: "500"
-    // })
     res.redirect("/error");
     req.flash("error", "Uh Oh Something went wrong")
   }

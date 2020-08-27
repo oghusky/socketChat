@@ -9,13 +9,6 @@ const chatRooms = [
   "latinos", "lgbtq", "gamers",
   "sports", "gothic", "emo", "newbies"
 ]
-// const chatRooms = [
-//   "thisroom",
-//   "thatroom",
-//   "yourroom",
-//   "myroom"
-// ]
-
 
 exports.getRoomNames = (req, res) => {
   try {
@@ -30,9 +23,6 @@ exports.getRoomNames = (req, res) => {
       });
     }
   } catch (err) {
-    // res.status(500).render("error/error500", {
-    //   path: "/500"
-    // })
     res.redirect("/error")
   }
 };
@@ -46,9 +36,6 @@ exports.getChosenChat = (req, res) => {
       path: "/chat"
     });
   } catch (err) {
-    // res.status(500).render("error/error500", {
-    //   path: "/505"
-    // });
     res.redirect("/error")
   }
 };

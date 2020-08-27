@@ -14,10 +14,6 @@ exports.getIndex = (req, res) => {
     });
 
   } catch (err) {
-    // res.status(500).render("error/error500", {
-    //   path: "/500",
-    //   title: "500"
-    // });
     res.redirect("/error")
     req.flash("error", "Uh Oh Something went wrong");
   }
@@ -31,10 +27,6 @@ exports.getRegister = (req, res) => {
       user: req.user
     });
   } catch (err) {
-    // res.status(500).render("error/error500", {
-    //   path: "/500",
-    //   title: "500"
-    // });
     res.redirect("/error")
     req.flash("error", "Uh Oh Something went wrong")
   }
@@ -48,10 +40,6 @@ exports.getLogin = (req, res) => {
       user: req.user
     });
   } catch (err) {
-    // res.status(500).render("error/error500", {
-    //   path: "/500",
-    //   title: "500"
-    // });
     res.redirect("/error")
     req.flash("error", "Uh Oh Something went wrong")
   }

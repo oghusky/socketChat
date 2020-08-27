@@ -5,14 +5,16 @@
     <a href="/user/<%=user._id%>" class="user-card">
       <div class="card allusers-card">
         <div class="img-div">
-          <%if(user.userimgname.includes(".jpg")){%>
-          <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
-          <%}else if(user.userimgname.includes(".png")){%>
-          <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
-          <%}else if(user.userimgname.includes(".jpeg")){%>
-          <img src="/build/images/<%=user.userimgname%>" alt="<%=user.userimgname%>" class="card-img-top">
+          <%if(user.photos.length>0){%>
+          <%if(user.photos[0].url.includes(".jpg")){%>
+          <img src="<%=user.photos[0].url%>" alt="<%=user.username%>" class="card-img-top">
+          <%}else if(user.photos[0].url.includes(".jpg")){%>
+          <img src="<%=user.photos[0].url%>" alt="<%=user.username%>" class="card-img-top">
+          <%}else if(user.photos[0].url.includes(".jpg")){%>
+          <img src="<%=user.photos[0].url%>" alt="<%=user.username%>" class="card-img-top">
+          <%}%>
           <%}else{%>
-          <img src="../images/avatar.png" alt="<%=user.userimgname%>" class="card-img-top">
+          <img src="../images/avatar.png" alt="<%=user.username%>" class="card-img-top">
           <%}%>
       </div>
         <div class="card-body">

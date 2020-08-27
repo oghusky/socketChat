@@ -61,27 +61,23 @@ exports.putAddPhoto = async (req, res) => {
   try {
     const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
     await User.findOneAndUpdate({ _id: req.user.id }, { new: true }, async (err, user) => {
-      if (!err && user.photos.length < 4) {
+      console.log(user.photos.length);
+      if (!err && user.photos.length < 3) {
         const userimgname = userimg === "" ? "" : userimg.name;
         if (userimg !== "") {
           user.userimgname = `${user.username}_${userimgname}`;
           req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
           imageMin(`${user.username}_${userimgname}`)
-            .then(() => {
-              fs.exists(`./public/build/images//${user.username}_${userimgname}`, (file) => {
-                if (file) {
-                  cloudinary.uploader.upload(`./public/build/images/${user.username}_${userimgname}`, async (err, data) => {
-                    if (err) console.log(err)
-                    else {
-                      user.photos.push({ url: data.url });
-                      user.save();
-                    }
-                  })
-                }
+            .then(async () => {
+              await fs.exists(`./public/build/images//${user.username}_${userimgname}`, (file) => {
+                if (file) { cloudSave(user, userimgname); }
+                else { setTimeout(() => { cloudSave(user, userimgname) }, 500); }
               })
-            }).then(async () => {
-              await rmDeletedUserImg(`${user.username}_${userimgname}`)
-            })
+              fs.exists(`./public/build/images//${user.username}_${userimgname}`, async (file) => {
+                if (file) { rmDeletedUserImg(`${user.username}_${userimgname}`) }
+                else { setTimeout(async () => { await rmDeletedUserImg(`${user.username}_${userimgname}`) }, 700) }
+              })
+            }).catch(err => console.log(err));
         }
         res.redirect(`/user/${user.id}`);
       }
@@ -154,4 +150,18 @@ exports.deleteProfile = async (req, res) => {
     res.redirect("/error");
     req.flash("error", "Uh Oh Something went wrong")
   }
+}
+
+function cloudSave(user, userimgname) {
+  fs.exists(`./public/build/images//${user.username}_${userimgname}`, (file) => {
+    if (file) {
+      cloudinary.uploader.upload(`./public/build/images/${user.username}_${userimgname}`, async (err, data) => {
+        if (err) console.log(err)
+        else {
+          user.photos.push({ url: data.url });
+          user.save();
+        }
+      })
+    }
+  })
 }

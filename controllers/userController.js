@@ -62,15 +62,25 @@ exports.putAddPhoto = async (req, res) => {
     const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
     await User.findOneAndUpdate({ _id: req.user.id }, { new: true }, async (err, user) => {
       if (!err) {
-        await rmImg(`/images/${user.userimgname}`)
         const userimgname = userimg === "" ? "" : userimg.name;
         if (userimg !== "") {
           user.userimgname = `${user.username}_${userimgname}`;
           req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
-          imageMin(`${user.username}_${userimgname}`);
+          imageMin(`${user.username}_${userimgname}`)
+          fs.exists(`./public/build/images//${user.username}_${userimgname}`, (file) => {
+            if (file) {
+              cloudinary.uploader.upload(`./public/build/images/${user.username}_${userimgname}`, async (err, data) => {
+                if (err) console.log(err)
+                else {
+                  user.photos.push({ url: data.url });
+                  user.save();
+                  rmDeletedUserImg(`/${user.username}_${userimgname}`)
+                }
+              })
+            }
+          })
         }
       }
-      await user.save();
       res.redirect(`/user/${user.id}`);
     })
   } catch (err) {

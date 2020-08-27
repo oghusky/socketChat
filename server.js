@@ -74,11 +74,13 @@ const authRoute = require("./routes/authRouter");
 const chatRoute = require("./routes/chatRouter");
 const userRoute = require("./routes/userRouter");
 const errorRoute = require("./routes/errorRouter");
+const galleryRoute = require("./routes/galleryRouter");
 // use routes
 app.use("/", authRoute);
 app.use("/chat", chatRoute);
 app.use("/user", userRoute);
 app.use("/error", errorRoute);
+app.use("/gallery", galleryRoute);
 app.use("/*", errorRoute);
 // PORT
 const PORT = process.env.PORT || 3000;

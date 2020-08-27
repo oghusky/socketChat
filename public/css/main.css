@@ -330,6 +330,15 @@ section.profile header {
       padding:0;
     }
 /* end profile */
+h2.no-photos-header{
+  color:rgba(255,255,255,0.4)
+}
+label.photo-likes{
+  font-weight: bold;
+}
+/* gallery */
+
+/* end gallery */
 
 /* add photo */
 form.add-photo{

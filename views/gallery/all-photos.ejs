@@ -1,0 +1,26 @@
+<div class="all-photos-div container">
+  <h1 class="text-center"><%=currentUser.username.toUpperCase()%>'s Photo's</h1>
+  <div class="photos my-3">
+    <%if(currentUser.photos.length > 0){%>
+    <%currentUser.photos.reverse().map(photo=>{%>
+    <div class="col-sm-6 container-fluid">
+      <img src="<%=photo.url%>" alt="<%currentUser.username%>'s Photo" class="img-fluid">
+      <div class="d-flex justify-content-space-around">
+        <form action="/gallery/<%=currentUser.id%>/<%= photo._id %>" method="POST" class="form-inline mt-0">
+          <button class="btn btn-outline-primary"><i class="far fa-heart fa-lg"></i></button>
+          <label class="photo-likes pt-2"><%=photo.likes%> LIKES</label>
+        </form>
+        <%if(currentUser.id === user.id){%>
+        <form action="/gallery/<%=currentUser.id%>/<%= photo._id %>" method="GET" class="form-inline mt-0">
+          <button class="btn btn-outline-danger ml-auto"><i class="far fa-trash-alt fa-lg"></i></button>
+        </form>
+        <%}%>
+      </div>
+    </div>
+    <%})%>
+        <%}else{%>
+        <h2 class="no-photos-header text-center"><%=currentUser.username.toUpperCase()%> Has Not Uploaded Any Photos
+        </h2>
+        <%}%>
+  </div>
+</div>

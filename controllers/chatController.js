@@ -1,9 +1,7 @@
 // array of room names
 const chatRooms = [
-  "business owners",
-  "sports",
-  "anime",
-  "lobby", "20's", "30's",
+  "business owners", "sports", "techies",
+  "anime", "lobby", "20's", "30's",
   "40's", "50's", "flirting",
   "african american", "asian",
   "latinos", "lgbtq", "gamers",

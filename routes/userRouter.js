@@ -6,6 +6,7 @@ const {
   getUserEditForm,
   putAddPhoto,
   putEditInfo,
+  putUpdateProfilePic,
   deleteProfile,
   deleteConfirm
 } = require("../controllers/userController");
@@ -28,6 +29,10 @@ router
 router
   .route("/delete=:id")
   .get(ensureAuth, deleteProfile);
+
+router
+  .route("/:id/photo=:photoid")
+  .post(putUpdateProfilePic)
 
 router
   .route("/:id")

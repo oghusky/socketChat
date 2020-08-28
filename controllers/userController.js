@@ -63,18 +63,24 @@ exports.putAddPhoto = async (req, res) => {
     await User.findOneAndUpdate({ _id: req.user.id }, { new: true }, async (err, user) => {
       if (!err && user.photos.length < 3) {
         if (req.files.userimg.name !== "") {
-          req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
-          fs.exists(`./public/images/${user.username}_${userimgname}`, (file) => {
-            if (file) {
-              cloudinary.uploader.upload(`./public/images/${user.username}_${userimgname}`, { quality: "auto:low" })
-                .then(async photo => {
-                  user.photos.push({ url: photo.url })
-                  user.save();
-                  return await rmImg(`${user.username}_${userimgname}`)
-                })
-                .catch(err => console.warn(err))
-            }
-          })
+          if (req.files.userimg.mimetype === 'image/png' ||
+            req.files.userimg.mimetype === 'image/jpg' ||
+            req.files.userimg.mimetype === 'image/jpeg' ||
+            req.files.userimg.mimetype === 'image/gif') {
+            req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
+            fs.exists(`./public/images/${user.username}_${userimgname}`, (file) => {
+              if (file) {
+                cloudinary.uploader.upload(`./public/images/${user.username}_${userimgname}`, { quality: "auto:low" })
+                  .then(async photo => {
+                    user.photos.push({ url: photo.url, photoindex: user.photos.length })
+                    user.userimgname = photo.url;
+                    user.save();
+                    return await rmImg(`${user.username}_${userimgname}`)
+                  })
+                  .catch(err => console.warn(err))
+              }
+            })
+          }
         }
         res.redirect(`/user/${user.id}`);
       }
@@ -85,7 +91,20 @@ exports.putAddPhoto = async (req, res) => {
     })
   } catch (err) {
     res.redirect("/error")
-    req.flash("error", "Uh Oh Something went wrong")
+  }
+}
+
+
+exports.putUpdateProfilePic = async (req, res) => {
+  try {
+    const photoid = parseInt(req.params.photoid)
+    await User.findOneAndUpdate({ _id: req.params.id }, { new: true }, (err, user) => {
+      user.userimgname = user.photos.filter(photo => photo.photoindex === photoid)[0].url;
+      user.save();
+      res.redirect(`/user/${user.id}`)
+    })
+  } catch (err) {
+    res.redirect("/error")
   }
 }
 
@@ -100,7 +119,6 @@ exports.getUserEditForm = async (req, res) => {
     })
   } catch (err) {
     res.redirect("/error")
-    req.flash("error", "Uh Oh Something went wrong");
   }
 }
 

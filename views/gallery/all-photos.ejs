@@ -2,9 +2,11 @@
   <h1 class="text-center"><%=currentUser.username.toUpperCase()%>'s Photo's</h1>
   <div class="photos my-3">
     <%if(currentUser.photos.length > 0){%>
-    <%currentUser.photos.reverse().map(photo=>{%>
-    <div class="col-sm-6 container-fluid">
-      <img src="<%=photo.url%>" alt="<%currentUser.username%>'s Photo" class="img-fluid">
+    <%currentUser.photos.reverse().map((photo, i)=>{%>
+    <div class="col-sm-6 container-fluid mb-5">
+      <a href="/gallery/<%=currentUser.id%>/photo=<%=i%>">
+        <img src="<%=photo.url%>" alt="<%currentUser.username%>'s Photo" class="img-fluid gallery-photo">
+      </a>
       <div class="d-flex justify-content-space-around">
         <form action="/gallery/<%=currentUser.id%>/<%= photo._id %>" method="POST" class="form-inline mt-0">
           <button class="btn btn-outline-primary"><i class="far fa-heart fa-lg"></i></button>
@@ -16,6 +18,12 @@
         </form>
         <%}%>
       </div>
+      <%if(currentUser.id === user.id){%>
+        <form action="/user/<%=currentUser.id%>/photo=<%= photo.photoindex %>" method="POST"
+          class="form-inline mt-0 py-0">
+          <button class="btn btn-outline-primary">MAKE PROFILE PIC</button>
+        </form>
+        <%}%>
     </div>
     <%})%>
         <%}else{%>

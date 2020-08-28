@@ -5,14 +5,8 @@
   </header>
   <div class="user-img">
     <div class="container-fluid">
-      <%if(currentUser.photos.length){%>
-      <%if(currentUser.photos[0].url.includes(".jpg")){%>
-      <img src="<%=currentUser.photos[0].url%>" alt="<%=currentUser.username%>" class="card-img-top">
-      <%}else if(currentUser.photos[0].url.includes(".png")){%>
-      <img src="<%=currentUser.photos[0].url%>" alt="<%=currentUser.username%>" class="card-img-top">
-      <%}else if(currentUser.photos[0].url.includes(".jpeg")){%>
-      <img src="<%=currentUser.photos[0].url%>" alt="<%=currentUser.username%>" class="card-img-top">
-      <%}%>
+      <%if(currentUser.photos.length >0 ){%>
+      <img src="<%=currentUser.userimgname%>" alt="<%=currentUser.username%>" class="card-img-top">
       <%}else{%>
       <img src="../images/avatar.png" alt="<%=currentUser.username%>" class="card-img-top">
       <%}%>

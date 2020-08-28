@@ -43,7 +43,7 @@ app.set("view engine", "ejs");
 app.use(upload());
 
 // express middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, parameterLimit: 10 }));
 app.use(expressSanitizer());
 app.use(cors());
 

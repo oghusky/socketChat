@@ -80,7 +80,8 @@ const userSchema = new mongoose.Schema({
     likes: {
       type: Number,
       default: 0
-    }
+    },
+    photoindex: Number
   }]
 });
 module.exports = mongoose.model("User", userSchema);

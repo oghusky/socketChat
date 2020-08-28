@@ -54,6 +54,7 @@ if (splitPath.includes("chat")) {
     leaveBtn = document.querySelector("#leave-btn"),
     currentUser = document.querySelector("#current-user"),
     chatSubmit = document.querySelector("#chat-submit");
+  console.log(userImg);
   if (chatSubmit === null) {
     console.log("bloop")
   } else {
@@ -82,10 +83,9 @@ if (splitPath.includes("chat")) {
     chatWindow.scrollTop = bottomChat.getBoundingClientRect().top;
   });
   socket.on("chat-message", (message, user, img, id) => {
-    const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../build/images/${img}`;
+    const newimg = img === "" ? "../images/avatar.png" : `${img}`;
     if (user === userName) {
       output.innerHTML += `
-      
       <div class="message-div clearfix">
       <div class="message-wrap float-right">
           <div class="msg-inline-wrap">
@@ -103,7 +103,7 @@ if (splitPath.includes("chat")) {
             </div>
             `;
     } else {
-      const newimg = img.split("_")[1] === "" ? "../images/avatar.png" : `../build/images/${img}`;
+      const newimg = img === "" ? "../images/avatar.png" : `${img}`;
       output.innerHTML += `
             <div class="message-div clearfix">
         <div class="message-wrap float-left">

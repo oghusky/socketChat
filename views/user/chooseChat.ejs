@@ -1,8 +1,7 @@
-<%-include("../partials/navbar") -%>
-<div id="choose-chat">
+<div class="mt-3" id="choose-chat">
   <% chatRooms.map(function(room, i){%>
-  <p>
-    <a href="/chat/<%= room.toLowerCase() %>"> <%= room.toUpperCase() %></a>
+  <p class="py-1">
+    <a class="pl-3" href="/chat/<%= room.toLowerCase() %>"> <%= room.toUpperCase() %></a>
   </p>
   <hr id="choose-hr" />
   <%})%>

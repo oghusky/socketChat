@@ -15,7 +15,7 @@
       </li>
       <%}else{%>
       <li class="nav-item">
-        <a class="nav-link" id="user-name" href="/user/<%= user.id %>">PROFILE</a>
+        <a class="nav-link" id="user-name" href="/user/<%= user.id %>"><%=user.username.toUpperCase()%></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/chat">CHAT</a>
@@ -43,6 +43,8 @@
       </div>
       <% } %>
   </div>
-  <%if(path === "/chat"){%>
-  <h4 id="room-name"><%= roomName %> <span id="room-count"></span></h3>
-    <%}%>
+  <div class="mt-1">
+    <%if(path === "/chat"){%>
+    <h4 id="room-name"><%= roomName %> <span id="room-count"></span></h3>
+      <%}%>
+      </div>

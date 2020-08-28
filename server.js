@@ -10,7 +10,6 @@ const express = require("express"),
   flash = require("connect-flash"),
   session = require('express-session'),
   cloudinary = require('cloudinary').v2,
-  upload = require("express-fileupload"),
   expressSanitizer = require("express-sanitizer"),
   expressLayouts = require("express-ejs-layouts");
 
@@ -38,9 +37,6 @@ cloudinary.config({
 // ejs setup
 app.use(expressLayouts);
 app.set("view engine", "ejs");
-
-// express fileupload
-app.use(upload());
 
 // express middleware
 app.use(express.urlencoded({ extended: true, parameterLimit: 10 }));

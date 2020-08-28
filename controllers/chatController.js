@@ -16,7 +16,8 @@ exports.getRoomNames = (req, res) => {
     if (chatRooms.includes(roomName.toLowerCase())) {
       res.render("user/chat", {
         roomName: req.params.roomName,
-        user: req.user, users,
+        user: req.user,
+        users,
         path: "/chat",
         title: "chat"
       });

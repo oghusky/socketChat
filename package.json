@@ -16,8 +16,6 @@
     "express-fileupload": "^1.2.0",
     "express-sanitizer": "^1.0.5",
     "express-session": "^1.17.1",
-    "gulp": "^4.0.2",
-    "gulp-imagemin": "^7.1.0",
     "mongoose": "^5.10.0",
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",

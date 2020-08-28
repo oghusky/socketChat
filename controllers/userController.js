@@ -1,17 +1,16 @@
+
 const User = require("../models/User"),
   cloudinary = require("cloudinary").v2,
-  { imageMin } = require("../gulpfile"),
   fs = require('fs'),
   del = require('del');
 
 const rmImg = async (img) => {
   await del([`public/build/${img}`, '!public/build']);
 }
-
 const rmDeletedUserImg = async (img) => {
   await del([`public/build/images/${img}`, `!public/build/images`])
+  return await rmImg(img);
 }
-
 exports.getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find();
@@ -60,24 +59,22 @@ exports.getAddPhoto = async (req, res) => {
 exports.putAddPhoto = async (req, res) => {
   try {
     const userimg = (req.files === null || req.files === undefined) ? "" : req.files.userimg;
+    const userimgname = userimg === "" ? "" : userimg.name;
     await User.findOneAndUpdate({ _id: req.user.id }, { new: true }, async (err, user) => {
-      console.log(user.photos.length);
       if (!err && user.photos.length < 3) {
-        const userimgname = userimg === "" ? "" : userimg.name;
-        if (userimg !== "") {
-          user.userimgname = `${user.username}_${userimgname}`;
+        if (req.files.userimg.name !== "") {
           req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
-          imageMin(`${user.username}_${userimgname}`)
-            .then(async () => {
-              await fs.exists(`./public/build/images//${user.username}_${userimgname}`, (file) => {
-                if (file) { cloudSave(user, userimgname); }
-                else { setTimeout(() => { cloudSave(user, userimgname) }, 500); }
-              })
-              fs.exists(`./public/build/images//${user.username}_${userimgname}`, async (file) => {
-                if (file) { rmDeletedUserImg(`${user.username}_${userimgname}`) }
-                else { setTimeout(async () => { await rmDeletedUserImg(`${user.username}_${userimgname}`) }, 700) }
-              })
-            }).catch(err => console.log(err));
+          fs.exists(`./public/images/${user.username}_${userimgname}`, (file) => {
+            if (file) {
+              cloudinary.uploader.upload(`./public/images/${user.username}_${userimgname}`, { quality: "auto:low" })
+                .then(async photo => {
+                  user.photos.push({ url: photo.url })
+                  user.save();
+                  return await rmImg(`${user.username}_${userimgname}`)
+                })
+                .catch(err => console.warn(err))
+            }
+          })
         }
         res.redirect(`/user/${user.id}`);
       }
@@ -150,18 +147,4 @@ exports.deleteProfile = async (req, res) => {
     res.redirect("/error");
     req.flash("error", "Uh Oh Something went wrong")
   }
-}
-
-function cloudSave(user, userimgname) {
-  fs.exists(`./public/build/images//${user.username}_${userimgname}`, (file) => {
-    if (file) {
-      cloudinary.uploader.upload(`./public/build/images/${user.username}_${userimgname}`, async (err, data) => {
-        if (err) console.log(err)
-        else {
-          user.photos.push({ url: data.url });
-          user.save();
-        }
-      })
-    }
-  })
 }

@@ -137,4 +137,3 @@ if (splitPath.includes("chat")) {
     return
   }
 }
-

@@ -22,7 +22,7 @@ exports.getRegister = (req, res) => {
   try {
     res.status(200).render("auth/register", {
       path: "/register",
-      title: "/register",
+      title: "register",
       user: req.user
     });
   } catch (err) {

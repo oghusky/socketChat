@@ -17,7 +17,8 @@ exports.getRoomNames = (req, res) => {
       res.render("user/chat", {
         roomName: req.params.roomName,
         user: req.user, users,
-        path: "/chat"
+        path: "/chat",
+        title: "chat"
       });
     }
   } catch (err) {
@@ -31,7 +32,8 @@ exports.getChosenChat = (req, res) => {
       chatRooms,
       user: req.user,
       roomName: req.params.roomName,
-      path: "/chat"
+      path: "/chat",
+      title: "chat"
     });
   } catch (err) {
     res.redirect("/error")

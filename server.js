@@ -128,7 +128,7 @@ io
           .of("/mainspace")
           .to(roomName)
           .emit("chat-message", "^^^ Tried to send a long message", username, userimg, id);
-      } else if (message.includes("http") || message.includes(".com")) {
+      } else if (message.includes("http") || message.includes(".com") || message.includes("www")) {
         io
           .of("/mainspace")
           .to(roomName)

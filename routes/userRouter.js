@@ -10,7 +10,7 @@ const {
   deleteProfile,
   deleteConfirm
 } = require("../controllers/userController");
-const { ensureAuth } = require("../config/auth");
+const { ensureAuth, isOwner } = require("../config/auth");
 
 router
   .route("/all_users")
@@ -18,21 +18,21 @@ router
 
 router
   .route("/add_photo=:id")
-  .get(ensureAuth, getAddPhoto)
-  .post(ensureAuth, putAddPhoto);
+  .get(ensureAuth, isOwner, getAddPhoto)
+  .post(ensureAuth, isOwner, putAddPhoto);
 
 router
   .route("/edit_info=:id")
-  .get(ensureAuth, getUserEditForm)
-  .post(ensureAuth, putEditInfo);
+  .get(ensureAuth, isOwner, getUserEditForm)
+  .post(ensureAuth, isOwner, putEditInfo);
 
 router
   .route("/delete=:id")
-  .get(ensureAuth, deleteProfile);
+  .get(ensureAuth, isOwner, deleteProfile);
 
 router
   .route("/:id/photo=:photoid")
-  .post(putUpdateProfilePic)
+  .post(ensureAuth, isOwner, putUpdateProfilePic)
 
 router
   .route("/:id")

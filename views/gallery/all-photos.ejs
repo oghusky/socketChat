@@ -1,5 +1,5 @@
 <div class="all-photos-div container">
-  <h1 class="text-center"><%=currentUser.username.toUpperCase()%>'s Photo's</h1>
+  <h2 class="text-center"><%=currentUser.username.toUpperCase()%>'s GALLERY</h2>
   <div class="photos my-3">
     <%if(currentUser.photos.length > 0){%>
     <%currentUser.photos.reverse().map((photo, i)=>{%>

@@ -32,8 +32,8 @@ exports.getProfile = async (req, res) => {
     res.status(200).render("user/profile", {
       path: "/profile/:id",
       title: currentUser.username,
-      currentUser,
-      user: req.user
+      user: req.user,
+      currentUser
     })
   } catch (err) {
     res.redirect("/error")
@@ -145,9 +145,6 @@ exports.putEditInfo = async (req, res) => {
         user.twitter = req.body.twitter || user.twitter;
         user.instagram = req.body.instagram || user.instagram;
         user.snapchat = req.body.snapchat || user.snapchat;
-        if (req.body.password !== "" && req.body.password === req.body.password2) {
-          user.password = req.body.password || user.password;
-        }
         user.save();
         res.redirect(`/user/${user._id}`);
       })
@@ -158,14 +155,15 @@ exports.putEditInfo = async (req, res) => {
 
 }
 
-
-exports.deleteConfirm = async (req, res) => {
-  const user = await User.findOne({ _id: req.params.id });
-}
-
 exports.deleteProfile = async (req, res) => {
   try {
     const user = await User.findOneAndRemove({ _id: req.params.id });
+    const pubid = user.photos.map(photo => photo.public_id);
+    pubid.forEach(photo => {
+      cloudinary.uploader.destroy(photo)
+        .then(() => console.log("removed"))
+        .catch(err => console.warn(err));
+    })
     rmDeletedUserImg(`${user.userimgname}`);
     user.remove();
     res.redirect("/chat");

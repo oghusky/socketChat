@@ -83,6 +83,10 @@ const userSchema = new mongoose.Schema({
     },
     photoindex: Number,
     public_id: String
-  }]
+  }],
+  isAdmin: {
+    type: Boolean,
+    default: false
+  }
 });
 module.exports = mongoose.model("User", userSchema);

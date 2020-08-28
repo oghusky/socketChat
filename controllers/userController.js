@@ -5,7 +5,7 @@ const User = require("../models/User"),
   del = require('del');
 
 const rmImg = async (img) => {
-  await del([`public/build/${img}`, '!public/build']);
+  await del([`public/images/${img}`, '!public/images']);
 }
 const rmDeletedUserImg = async (img) => {
   await del([`public/build/images/${img}`, `!public/build/images`])
@@ -70,19 +70,27 @@ exports.putAddPhoto = async (req, res) => {
             req.files.userimg.mv(`./public/images/${user.username}_${userimgname}`);
             fs.exists(`./public/images/${user.username}_${userimgname}`, (file) => {
               if (file) {
+                const date = new Date();
+                const hour = date.getHours();
+                const minutes = date.getMinutes();
+                const day = date.getDay();
+                const year = date.getFullYear();
+                const timestamp = hour + minutes + day + year
                 cloudinary.uploader.upload(`./public/images/${user.username}_${userimgname}`, { quality: "auto:low" })
                   .then(async photo => {
-                    user.photos.push({ url: photo.url, photoindex: user.photos.length })
+                    user.photos.push({ url: photo.url, photoindex: timestamp, public_id: photo.public_id })
                     user.userimgname = photo.url;
                     user.save();
-                    return await rmImg(`${user.username}_${userimgname}`)
+                  })
+                  .then(async () => {
+                    await rmImg(`${user.username}_${userimgname}`)
+                    res.redirect(`/user/${user.id}`)
                   })
                   .catch(err => console.warn(err))
               }
             })
           }
         }
-        res.redirect(`/user/${user.id}`);
       }
       else {
         res.redirect(`/user/${user.id}`)

@@ -81,7 +81,8 @@ const userSchema = new mongoose.Schema({
       type: Number,
       default: 0
     },
-    photoindex: Number
+    photoindex: Number,
+    public_id: String
   }]
 });
 module.exports = mongoose.model("User", userSchema);

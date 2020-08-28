@@ -342,6 +342,9 @@ img.gallery-photo{
   display: block;
   margin: 0 auto;
 }
+button#make-photo{
+  border: 1px solid var(--blue);
+}
 /* end gallery */
 
 /* single photo */

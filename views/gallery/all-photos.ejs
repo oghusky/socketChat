@@ -4,16 +4,17 @@
     <%if(currentUser.photos.length > 0){%>
     <%currentUser.photos.reverse().map((photo, i)=>{%>
     <div class="col-sm-6 container-fluid mb-5">
-      <a href="/gallery/<%=currentUser.id%>/photo=<%=i%>">
+      <a href="/gallery/<%=currentUser.id%>/photo=<%=photo.photoindex%>">
         <img src="<%=photo.url%>" alt="<%currentUser.username%>'s Photo" class="img-fluid gallery-photo">
       </a>
       <div class="d-flex justify-content-space-around">
-        <form action="/gallery/<%=currentUser.id%>/<%= photo._id %>" method="POST" class="form-inline mt-0">
+        <form action="/gallery/<%=currentUser.id%>/like=<%= photo.photoindex %>" method="POST" class="form-inline mt-0">
           <button class="btn btn-outline-primary"><i class="far fa-heart fa-lg"></i></button>
           <label class="photo-likes pt-2"><%=photo.likes%> LIKES</label>
         </form>
         <%if(currentUser.id === user.id){%>
-        <form action="/gallery/<%=currentUser.id%>/<%= photo._id %>" method="GET" class="form-inline mt-0">
+        <form action="/gallery/<%=currentUser.id%>/delete=<%= photo.photoindex %>" method="GET"
+          class="form-inline mt-0">
           <button class="btn btn-outline-danger ml-auto"><i class="far fa-trash-alt fa-lg"></i></button>
         </form>
         <%}%>
@@ -21,7 +22,7 @@
       <%if(currentUser.id === user.id){%>
         <form action="/user/<%=currentUser.id%>/photo=<%= photo.photoindex %>" method="POST"
           class="form-inline mt-0 py-0">
-          <button class="btn btn-outline-primary">MAKE PROFILE PIC</button>
+          <button class="btn btn-outline-primary" id="make-photo">MAKE PROFILE PIC</button>
         </form>
         <%}%>
     </div>
@@ -29,6 +30,8 @@
         <%}else{%>
         <h2 class="no-photos-header text-center"><%=currentUser.username.toUpperCase()%> Has Not Uploaded Any Photos
         </h2>
+        <p class="text-center"><a href="/user/<%=currentUser.id%>" class="btn btn-primary"><i
+              class="fas fa-backward"></i> BACK</a></p>
         <%}%>
   </div>
 </div>

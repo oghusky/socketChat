@@ -1,4 +1,5 @@
-const User = require("../models/User");
+const User = require("../models/User"),
+  cloudinary = require('cloudinary').v2;
 
 exports.getUserGallery = async (req, res) => {
   try {
@@ -29,4 +30,29 @@ exports.getSinglePhoto = async (req, res) => {
   } catch (err) {
     res.redirect("/error/error404")
   }
+}
+
+exports.deletePhoto = async (req, res) => {
+  try {
+    await User.findOneAndUpdate({ _id: req.params.userid }, { new: true }, (err, user) => {
+      const photo = user.photos.filter(photo => photo.photoindex === parseInt(req.params.photoid))[0].public_id;
+      const removeid = user.photos.map(photo => photo.photoindex).indexOf(parseInt(req.params.photoid));
+      cloudinary.uploader.destroy(photo)
+        .then(() => {
+          user.photos.splice(removeid, 1);
+          user.save();
+        }).then(() => res.redirect(`/gallery/${user.id}`))
+        .catch(err => console.warn(err));
+    })
+  } catch (err) {
+    res.redirect("/error");
+  }
+}
+
+exports.putLikePhoto = async (req, res) => {
+  await User.findOneAndUpdate({ _id: req.params.userid }, { new: true }, (err, user) => {
+    user.photos.filter(photo => photo.photoindex === parseInt(req.params.photoid) ? photo.likes++ : null);
+    user.save();
+    res.redirect(`/gallery/${user.id}`)
+  })
 }

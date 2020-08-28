@@ -8,20 +8,20 @@
     <ul class="navbar-nav ml-auto">
       <% if(!user){%>
       <li class="nav-item">
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/login">LOGIN</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/register">Register</a>
+        <a class="nav-link" href="/register">REGISTER</a>
       </li>
       <%}else{%>
       <li class="nav-item">
-        <a class="nav-link" id="user-name" href="/user/<%= user.id %>"><%= user.username.toUpperCase() %></a>
+        <a class="nav-link" id="user-name" href="/user/<%= user.id %>">PROFILE</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/chat">Chat</a>
+        <a class="nav-link" href="/chat">CHAT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
+        <a class="nav-link" href="/logout">LOGOUT</a>
       </li>
       <%}%>
     </ul>

@@ -10,6 +10,7 @@ const express = require("express"),
   flash = require("connect-flash"),
   session = require('express-session'),
   cloudinary = require('cloudinary').v2,
+  upload = require("express-fileupload"),
   expressSanitizer = require("express-sanitizer"),
   expressLayouts = require("express-ejs-layouts");
 
@@ -33,6 +34,8 @@ cloudinary.config({
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET
 });
+
+app.use(upload());
 
 // ejs setup
 app.use(expressLayouts);

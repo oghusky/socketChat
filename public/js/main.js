@@ -9,7 +9,9 @@ if (splitPath.includes("register")) {
   const password = document.querySelector("input[name='password']");
   const passwordTwo = document.querySelector("input[name='password2']");
   document.querySelector("#register-btn").addEventListener("click", (e) => {
-    const pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,10}$/;
+    // Bug found by https://github.com/diegocordoba87
+    // length of password on client side JS doesn't match length when checking password on server side
+    const pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,50}$/;
     // checks if password
     if (password.value === "" || !password.value.match(pwd)) {
       e.preventDefault();

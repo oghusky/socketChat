@@ -1,11 +1,23 @@
 // array of room names
 const chatRooms = [
-  "business owners", "sports", "techies",
-  "anime", "lobby", "20's", "30's",
-  "40's", "50's", "flirting",
-  "african american", "asian",
-  "latinos", "lgbtq", "gamers",
-  "sports", "gothic", "emo", "newbies"
+  "business owners",
+  "sports",
+  "techies",
+  "anime",
+  "gamers",
+  "lobby",
+  "flirt",
+  "african american",
+  "latinos",
+  "asian",
+  "newbies",
+  "lgbtq",
+  "goth",
+  "emo",
+  "20's",
+  "30's",
+  "40's",
+  "50's",
 ]
 
 exports.getRoomNames = (req, res) => {

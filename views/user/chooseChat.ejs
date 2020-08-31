@@ -1,8 +1,15 @@
-<div class="mt-3" id="choose-chat">
-  <% chatRooms.map(function(room, i){%>
-  <p class="py-1">
-    <a class="pl-3" href="/chat/<%= room.toLowerCase() %>"> <%= room.toUpperCase() %></a>
-  </p>
-  <hr id="choose-hr" />
-  <%})%>
+<div id="choose-chat" class="pb-5">
+  <h1 class="text-center">CHATROOMS</h1>
+  <p class="chat-safe-warning p-3">CHAT SAFELY. DO NOT GIVE OUT PERSONAL INFORMATION TO STRANGERS. BLURB.BE WILL NEVER
+    ASK
+    YOU FOR YOUR PERSONAL
+    INFORMATION IN A CHATROOM. BE SOCIAL AND HAVE FUN!!</p>
+  <div class="chat-list-div mt-3">
+    <% chatRooms.map(function(room, i){%>
+    <p>
+      <a href="/chat/<%= room.toLowerCase() %>"> <%= room.toUpperCase() %></a>
+    </p>
+    <hr id="choose-hr" />
+    <%})%>
+  </div>
 </div>

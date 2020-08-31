@@ -39,6 +39,15 @@ nav.navbar a.navbar-brand,
 nav.navbar ul.navbar-nav li.nav-item a.nav-link{
   color: var(--main-white);
 }
+nav.navbar a.navbar-brand{
+  font-weight: 700;
+}
+nav.navbar a.navbar-brand .blurb-brand{
+  color: var(--blue);
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
 span.navbar-toggler i.fas{
   color: var(--main-white);
 }
@@ -95,9 +104,16 @@ div.allusers-card div.card-body p.card-text{
   text-decoration: none;
   color: var(--main-white);
 }
+#choose-chat p.chat-safe-warning{
+  background-color: var(--blue);
+  color: var(--main-black);
+  letter-spacing: 1px;
+  font-weight: 500;
+}
 #choose-hr{
   margin: .25rem;
 }
+
 /* end choose chat */
 
 /* chat styles */
@@ -362,12 +378,43 @@ form.add-photo{
 }
 /* end add photo */
 
+/* cookie popup */
+.cookie-banner{
+    width: 50%;
+    text-align: center;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--main-black);
+    color: var(--main-white);
+    padding: 1rem;
+    box-shadow: 1px 1px 2px 2px rgba(0,0,0,.4);
+}
+.cookie-banner p{
+    padding: 0;
+    margin: .5rem 0;
+}
+.cookie-banner > p > a, #policy-header{
+    text-decoration: underline;
+}
+#close{
+    color: var(--main-white);
+    background-color: var(--blue);
+    cursor: pointer;
+    width: 6rem;
+}
+/* end cookie popup */
+
 /* footer */
 footer{
   text-align: center;
   background-color: var(--main-black)
 }
+footer p span.blurb-footer{
+  color: var(--blue);
+}
 /* end footer */
+
 /* media 1024px */
 @media only screen and (max-width: 1024px){
   div.allusers-row div.user-card-div div.img-div{
@@ -416,6 +463,9 @@ footer{
       div.allusers-row div.user-card-div div.img-div{
         height: 10rem;
       } 
+      .cookie-banner{
+        width: 100%;
+      }
     }
 
 /* end media 425px */

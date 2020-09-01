@@ -85,7 +85,7 @@ app.use("/*", errorRoute);
 const PORT = process.env.PORT || 3000;
 // Listening
 const server = app.listen(PORT, () => {
-  console.log("Server started on port: " + PORT);
+  console.log(`SERVER STARTED http://localhost:${PORT}`);
 });
 
 // socket setup

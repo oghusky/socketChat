@@ -71,10 +71,13 @@ span.navbar-toggler i.fas{
 div.allusers-row div.user-card-div{
   width: 50%;
 }
-
+/* div.card.allusers-card{
+  
+} */
 div.allusers-card{
   background: var(--dark-gray);
   color: var(--blue);
+  max-height: 380px;
 }
 div.allusers-row a,
 div.allusers-row a:hover{
@@ -90,6 +93,14 @@ div.allusers-card div.card-body h5.card-title,
 div.allusers-card div.card-body p.card-text{
   font-size: .8rem !important;
 }
+div.allusers-card div.img-div img.img-fluid{
+  max-height: 238px;
+  display: block;
+  margin: 0 auto;
+}
+div.allusers-row div.user-card-div div.img-div{
+    max-height: 38d0px;
+  }
 /* end all users */
 /* choose chat */
 #choose-chat{
@@ -263,7 +274,7 @@ section.profile header {
       padding: 0;
       margin: 0;
     }
-
+    
     section.profile div.container-fluid {
       margin: 0;
       padding: 0;
@@ -271,13 +282,14 @@ section.profile header {
       top: 50%;
       transform: translateY(-50%);
     }
-
+    
     div.user-img div.container-fluid img{
       border: 7px solid var(--blue);
       margin: 0;
       padding: 0;
       display: block;
       margin: 0 auto;
+      max-height: 240px;
       border-radius: 50% !important;
       width: 15rem;
   }
@@ -359,6 +371,8 @@ label.photo-likes{
 img.gallery-photo{
   display: block;
   margin: 0 auto;
+  max-height: 400px;
+  width: auto;
 }
 button#make-photo{
   border: 1px solid var(--blue);
@@ -369,6 +383,8 @@ button#make-photo{
 img.single-photo{
   display: block;
   margin: 0 auto;
+  max-height: 450px;
+  width: auto;
 }
 /* end single photo */
 
@@ -417,9 +433,9 @@ footer p span.blurb-footer{
 
 /* media 1024px */
 @media only screen and (max-width: 1024px){
-  div.allusers-row div.user-card-div div.img-div{
+  /* div.allusers-row div.user-card-div div.img-div{
     height: 15rem;
-  }
+  } */
 }
 /* media 995px */
 /* @media only screen and (max-width: 995px){
@@ -436,16 +452,16 @@ footer p span.blurb-footer{
   section.profile i.fa-camera {
     left: 62%;
   }
-  div.allusers-row div.user-card-div div.img-div{
+  /* div.allusers-row div.user-card-div div.img-div{
     height: 21rem;
-  } 
+  }  */
 }
 /* end media 768px */
 /* media 450px */
 @media screen and (max-width: 450px) {
-  div.allusers-row div.user-card-div div.img-div{
+  /* div.allusers-row div.user-card-div div.img-div{
     height: 14rem;
-  } 
+  }  */
 }
 /* media 425px */
 @media screen and (max-width: 425px) {
@@ -460,9 +476,9 @@ footer p span.blurb-footer{
       section.profile .user-bio {
         max-width: 70% !important;
       }
-      div.allusers-row div.user-card-div div.img-div{
+      /* div.allusers-row div.user-card-div div.img-div{
         height: 10rem;
-      } 
+      }  */
       .cookie-banner{
         width: 100%;
       }
@@ -478,18 +494,18 @@ footer p span.blurb-footer{
   #chat-window{
     height: 67vh;
   }
-  div.allusers-row div.user-card-div div.img-div{
+  /* div.allusers-row div.user-card-div div.img-div{
     height: 12rem;
-  } 
+  }  */
 }
 /* end media 414px */
 
 /* media 375px */
-@media only screen and (max-width: 375px){
+/* @media only screen and (max-width: 375px){
   div.allusers-row div.user-card-div div.img-div{
     height: 11rem;
   } 
-}
+} */
 /* emdmedia 375px */
 
 /* media 320px */
@@ -506,9 +522,9 @@ footer p span.blurb-footer{
   section.profile .user-bio {
     max-width: 95% !important;
   }
-  div.allusers-row div.user-card-div div.img-div{
+  /* div.allusers-row div.user-card-div div.img-div{
     height: 9rem;
-  } 
+  }  */
 }
 /* end media 320px */
 

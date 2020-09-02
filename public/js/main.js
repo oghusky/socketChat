@@ -2,7 +2,7 @@
 const pathname = window.location.pathname;
 const splitPath = pathname.split("/");
 
-// checking for register path
+// ==============================checking for register path
 if (splitPath.includes("register")) {
   console.log(pathname);
   // when submit button is clicked
@@ -42,7 +42,7 @@ function showErrorDiv(str) {
   }, 5000);
   document.querySelector("h3[class='text-center']").after(errorDiv)
 }
-// checking for chat path
+//================================= checking for chat path
 if (splitPath.includes("chat")) {
   let messageInput = document.querySelector("#message-input");
   const socket = io(`/mainspace`),
@@ -88,44 +88,48 @@ if (splitPath.includes("chat")) {
     if (user === userName) {
       output.innerHTML += `
       <div class="message-div clearfix">
-      <div class="message-wrap float-right">
+        <div class="message-wrap float-right">
           <div class="msg-inline-wrap">
-          <div class="msg-para-div">
-          <p style="color: #007bff;"><small><b>${user}</b></small></p>
+            <div class="msg-para-div">
+              <p style="color: #007bff;"><small><b>${user}</b></small></p>
               <p><small>${message}</small></p>
-              </div>
-              <div class="msg-img-wrap">
-        <a href="/user/${id}">
-        <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
-        </a>
-              </div>
-              </div>
             </div>
+            <div class="msg-img-wrap">
+              <a href="/user/${id}">
+              <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
+              </a>
             </div>
-            `;
+          </div>
+        </div>
+      </div>
+      `;
     } else {
       const newimg = img === "" ? "../images/avatar.png" : `${img}`;
       output.innerHTML += `
-            <div class="message-div clearfix">
-        <div class="message-wrap float-left">
-          <div class="msg-inline-wrap">
-            <div class="msg-img-wrap">
-            <a href="/user/${id}">
-        <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
-        </a>
+        <div class="message-div clearfix">
+          <div class="message-wrap float-left">
+            <div class="msg-inline-wrap">
+              <div class="msg-img-wrap">
+                <a href="/user/${id}">
+                <img src="${newimg}" alt=${user} class="img-fluid msg-img" />
+                </a>
+              </div>
+              <div class="msg-para-div them" data-who="them" data-user=${user}>
+                <p style="color: #007bff;">
+                  <small><b>${user}</b></small>
+                </p>
+                <p>
+                  <small>${message}</small>
+                </p>
+              </div>
             </div>
-            <div class="msg-para-div">
-            <p style="color: #007bff;"><small><b>${user}</b></small></p>
-            <p><small>${message}</small></p>
-            </div>
-            </div>
-            </div>
-            </div>
-            `;
+          </div>
+        </div>
+        `;
     }
   });
   socket.on("direct-message", (message, fromUser, fromUserImg, toUser, userMap) => {
-    if (userName === fromUser || userName === toUser) {
+    if (userName === fromUser || userName === toUser && message.length > 0) {
       const newimg = fromUserImg === "" ? "../images/avatar.png" : `${fromUserImg}`;
       if (fromUser === userName) {
         output.innerHTML += `
@@ -152,7 +156,7 @@ if (splitPath.includes("chat")) {
             <div class="msg-img-wrap">
         <img src="${newimg}" alt=${fromUser} class="img-fluid msg-img" />
             </div>
-            <div class="msg-para-div" style="background-color: #007bff;">
+            <div class="msg-para-div them" style="background-color: #007bff;" data-user=${toUser} data-who="them-dm">
             <p style="color: #eeeeee;"><small><b>${fromUser} to ${toUser}</b></small></p>
             <p style="color: #2e2e2e;"><small>${message}</small></p>
             </div>
@@ -186,4 +190,12 @@ if (splitPath.includes("chat")) {
     }
     return
   }
+  $("#output").on("click", "div.them", (e) => {
+    if (e.target.getAttribute("data-user")) {
+      messageInput.value = `@dm ${e.target.getAttribute("data-user").toLowerCase()}`;
+    } else if (!e.target.getAttribute("data-user")) {
+      const userinfo = e.target.parentElement.getAttribute("data-user").toLowerCase();
+      messageInput.value = `@dm ${userinfo}`;
+    }
+  })
 }

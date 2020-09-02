@@ -192,10 +192,10 @@ if (splitPath.includes("chat")) {
   }
   $("#output").on("click", "div.them", (e) => {
     if (e.target.getAttribute("data-user")) {
-      messageInput.value = `@dm ${e.target.getAttribute("data-user").toLowerCase()}`;
+      messageInput.value = `@dm ${e.target.getAttribute("data-user").toLowerCase()} `;
     } else if (!e.target.getAttribute("data-user")) {
       const userinfo = e.target.parentElement.getAttribute("data-user").toLowerCase();
-      messageInput.value = `@dm ${userinfo}`;
+      messageInput.value = `@dm ${userinfo} `;
     }
   })
 }

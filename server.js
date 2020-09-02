@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 // dependecies
 const express = require("express"),
   app = express(),
@@ -19,7 +19,7 @@ app.use(flash());
 require("./config/passport")(passport);
 
 //Connect to mongo
-mongoose.connect(process.env.mongoURI, {
+mongoose.connect(process.env.mongoURI || "mongodb://localhost:27017/socketUser", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -48,7 +48,7 @@ app.use(cors());
 
 // express session
 app.use(session({
-  secret: process.env.expressSecret,
+  secret: process.env.expressSecret || "session secret",
   resave: false,
   saveUninitialized: false
 }));
@@ -90,7 +90,7 @@ const server = app.listen(PORT, () => {
 
 // socket setup
 const io = socket(server);
-let userId = [];
+const usersArr = [];
 
 io
   // specifies main namespace
@@ -102,8 +102,8 @@ io
       // join room socket action
       socket.join(roomName);
       // const socketid = socket.id;
-      userId.push(username);
-      const userMap = [...new Set(userId)]
+      usersArr.push(username);
+      const userMap = [...new Set(usersArr)]
       // when user joins room in /mainspace
       io
         // specifies what to do when new user joins room in name space
@@ -144,22 +144,22 @@ io
       io
         .of("/mainspace")
         .to(roomName)
-        .emit("shift-doc", data, userId);
+        .emit("shift-doc", data, usersArr);
     });
     socket.on("disconnected", (roomName, username) => {
-      // const userMap = [...new Set(userId)]
-      const i = userId.indexOf(username);
-      userId.splice(i, 1);
+      const i = usersArr.indexOf(username);
+      const leftUser = usersArr.splice(i, 1);
       socket.leave(roomName);
       io
         .of("/mainspace")
         .to(roomName)
-        .emit("left-room", userId);
+        .emit("left-room", leftUser);
     });
-    socket.on("private-message", (username, message) => {
+    socket.on("private-message", (roomName, message, fromUser, fromUserImg, toUser) => {
+      const userMap = [...new Set(usersArr)]
       io
         .of("/mainspace")
-        .to(username)
-        .emit("direct-message", message, userId);
+        .to(roomName)
+        .emit("direct-message", message, fromUser, fromUserImg, toUser, userMap);
     });
   });

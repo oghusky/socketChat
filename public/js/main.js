@@ -56,7 +56,6 @@ if (splitPath.includes("chat")) {
     leaveBtn = document.querySelector("#leave-btn"),
     currentUser = document.querySelector("#current-user"),
     chatSubmit = document.querySelector("#chat-submit");
-  console.log(userImg);
   if (chatSubmit === null) {
     console.log("bloop")
   } else {
@@ -125,14 +124,63 @@ if (splitPath.includes("chat")) {
             `;
     }
   });
+  socket.on("direct-message", (message, fromUser, fromUserImg, toUser, userMap) => {
+    if (userName === fromUser || userName === toUser) {
+      const newimg = fromUserImg === "" ? "../images/avatar.png" : `${fromUserImg}`;
+      if (fromUser === userName) {
+        output.innerHTML += `
+      <div class="message-div clearfix">
+      <div class="message-wrap float-right">
+          <div class="msg-inline-wrap">
+          <div class="msg-para-div" style="background-color: #007bff;">
+          <p style="color: #eeeeee;"><small><b>${fromUser} to ${toUser}</b></small></p>
+              <p style="color: #2e2e2e;"><small>${message}</small></p>
+              </div>
+              <div class="msg-img-wrap">
+        <img src="${newimg}" alt=${fromUser} class="img-fluid msg-img" />
+              </div>
+              </div>
+            </div>
+            </div>
+            `;
+      } else {
+        const newimg = fromUserImg === "" ? "../images/avatar.png" : `${fromUserImg}`;
+        output.innerHTML += `
+            <div class="message-div clearfix">
+        <div class="message-wrap float-left">
+          <div class="msg-inline-wrap">
+            <div class="msg-img-wrap">
+        <img src="${newimg}" alt=${fromUser} class="img-fluid msg-img" />
+            </div>
+            <div class="msg-para-div" style="background-color: #007bff;">
+            <p style="color: #eeeeee;"><small><b>${fromUser} to ${toUser}</b></small></p>
+            <p style="color: #2e2e2e;"><small>${message}</small></p>
+            </div>
+            </div>
+            </div>
+            </div>
+            `;
+      }
+    }
+  })
   function leaveRoom() {
     socket.emit("disconnected", roomName, roomCount);
   }
   function emitMessage() {
     let messageInput = document.querySelector("#message-input");
-    if (messageInput.value !== "" && messageInput.value.length <= 120) {
+    if (messageInput.value !== "" &&
+      messageInput.value.length <= 120) {
       const message = messageInput.value;
-      socket.emit("message", roomName, message, userName, userImg, currentUser.innerText);
+      if (message.charAt(0) === "@" && message.charAt(1) === "d" && message.charAt(2) === "m") {
+        const fromUser = userName;
+        const fromUserImg = userImg;
+        const toUser = message.split(" ")[1];
+        const newMessage = message.split(`${toUser}`)[1]
+        console.log("userimg", userImg);
+        socket.emit("private-message", roomName, newMessage, fromUser, fromUserImg, toUser.toUpperCase());
+      } else {
+        socket.emit("message", roomName, message, userName, userImg, currentUser.innerText);
+      }
       socket.emit("doc-change", roomName)
       messageInput.value = "";
     }

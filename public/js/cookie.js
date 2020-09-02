@@ -7,7 +7,7 @@ function checkCookies() {
   } else {
     cookieBanner.style.display = "block";
   }
-  setYamCookie.addEventListener("click", (e) => {
+  setYamCookie.addEventListener("click", function (e) {
     localStorage.setItem("Blurb_be", "showCookies");
     cookieBanner.style.display = "none";
   });

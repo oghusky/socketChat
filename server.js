@@ -117,7 +117,10 @@ io
       // have to specify mainspace
       // have to specify room 
       // and grab message
-      if (message.includes("nigger") || message.includes("fag") || message.includes("faggot") || message.includes("nigga")) {
+      if (message.includes("nigger") ||
+        message.includes("fag") ||
+        message.includes("faggot") ||
+        message.includes("nigga")) {
         io
           .of("/mainspace")
           .to(roomName)
@@ -157,9 +160,24 @@ io
     });
     socket.on("private-message", (roomName, message, fromUser, fromUserImg, toUser) => {
       const userMap = [...new Set(usersArr)]
-      io
-        .of("/mainspace")
-        .to(roomName)
-        .emit("direct-message", message, fromUser, fromUserImg, toUser, userMap);
+      if (message.includes("nigger") ||
+        message.includes("fag") ||
+        message.includes("faggot") ||
+        message.includes("nigga")) {
+        io
+          .of("/mainspace")
+          .to(roomName)
+          .emit("direct-message", "^^^ Tried to say a bad word", fromUser, fromUserImg, toUser, userMap);
+      } else if (message.length > 120) {
+        io
+          .of("/mainspace")
+          .to(roomName)
+          .emit("direct-message", "^^^ Tried to send a long message", fromUser, fromUserImg, toUser, userMap);
+      } else {
+        io
+          .of("/mainspace")
+          .to(roomName)
+          .emit("direct-message", message, fromUser, fromUserImg, toUser, userMap);
+      }
     });
   });

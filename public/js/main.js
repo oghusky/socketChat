@@ -1,7 +1,9 @@
 // make socket connection in browser
 const pathname = window.location.pathname;
 const splitPath = pathname.split("/");
-
+if (window.location.pathname === "/" && localStorage.getItem("Blurb_be") === "showCookies") {
+  window.location.pathname = "/login"
+}
 // ==============================checking for register path
 if (splitPath.includes("register")) {
   console.log(pathname);

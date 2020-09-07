@@ -1,26 +1,33 @@
 const User = require('../models/User');
 // array of room names
+// const chatRooms = [
+//   "business owners",
+//   "sports",
+//   "techies",
+//   "anime",
+//   "gamers",
+//   "lobby",
+//   "flirt",
+//   "african american",
+//   "latinos",
+//   "asian",
+//   "newbies",
+//   "lgbtq",
+//   "goth",
+//   "emo",
+//   "20's",
+//   "30's",
+//   "40's",
+//   "50's",
+// ]
 const chatRooms = [
-  "business owners",
-  "sports",
-  "techies",
-  "anime",
-  "gamers",
-  "lobby",
-  "flirt",
-  "african american",
-  "latinos",
-  "asian",
-  "newbies",
-  "lgbtq",
-  "goth",
-  "emo",
-  "20's",
-  "30's",
-  "40's",
-  "50's",
+  "north",
+  "south",
+  "east",
+  "west",
+  "midwest",
+  "international"
 ]
-
 exports.getRoomNames = async (req, res) => {
   try {
     let roomName = req.params.roomName;

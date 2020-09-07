@@ -29,7 +29,7 @@ exports.getRegister = async (req, res) => {
       title: "register",
       user: req.user,
       allUsers: allUsers.length,
-      onlineUser: allUsers.filter(user => user.isOnline === true).length
+      onlineUsers: allUsers.filter(user => user.isOnline === true).length
     });
   } catch (err) {
     res.redirect("/error")
@@ -45,7 +45,7 @@ exports.getLogin = async (req, res) => {
       title: "login",
       user: req.user,
       allUsers: allUsers.length,
-      onlineUser: allUsers.filter(user => user.isOnline === true).length
+      onlineUsers: allUsers.filter(user => user.isOnline === true).length
     });
   } catch (err) {
     res.redirect("/error")

@@ -23,27 +23,26 @@ const chatRooms = [
 
 exports.getRoomNames = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id.toString());
-    let users = [];
     let roomName = req.params.roomName;
+    const user = await User.findById(req.user.id);
     user.whichRoom = roomName;
     user.save();
-    users.push(req.user);
     if (chatRooms.includes(roomName.toLowerCase())) {
       res.render("user/chat", {
         roomName: req.params.roomName,
         user: req.user,
-        users,
         path: "/chat",
         title: "chat"
       });
     }
   } catch (err) {
+    console.log(err);
     res.redirect("/error")
   }
 };
 exports.getChosenChat = async (req, res) => {
   try {
+    const allUsers = await User.find();
     const user = await User.findById(req.user.id.toString());
     user.whichRoom = "";
     user.save();
@@ -52,10 +51,12 @@ exports.getChosenChat = async (req, res) => {
       chatRooms,
       user: req.user,
       roomName: req.params.roomName,
+      allUsers,
       path: "/chat",
       title: "chat"
     });
   } catch (err) {
+    console.log(err);
     res.redirect("/error")
   }
 };

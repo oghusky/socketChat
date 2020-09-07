@@ -7,8 +7,11 @@
   <div class="chat-list-div mt-3">
     <% chatRooms.map(function(room, i){%>
     <p>
-      <a href="/chat/<%= room.toLowerCase() %>"> <%= room.toUpperCase() %></a>
+      <a style="padding-left: .5rem;" href="/chat/<%= room.toLowerCase() %>"> <%= room.toUpperCase() %>
+        <span
+          style="color:#007bff; padding-left: 1rem;"><%=allUsers.filter(users=>users.whichRoom == room.toLowerCase()).length%></span></a>
     </p>
+
     <hr id="choose-hr" />
     <%})%>
   </div>

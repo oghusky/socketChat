@@ -4,12 +4,15 @@ const
   passport = require("passport"),
   { isValid } = require("../utils/validatePwd");
 
-exports.getIndex = (req, res) => {
+exports.getIndex = async (req, res) => {
   try {
+    const allUsers = await User.find();
     res.status(200).render("auth/welcome", {
       path: "/welcome",
       title: "welcome",
       user: req.user,
+      allUsers: allUsers.length,
+      onlineUsers: allUsers.filter(user => user.isOnline == "true").length
     });
 
   } catch (err) {
@@ -18,12 +21,15 @@ exports.getIndex = (req, res) => {
   }
 };
 
-exports.getRegister = (req, res) => {
+exports.getRegister = async (req, res) => {
   try {
+    const allUsers = await User.find();
     res.status(200).render("auth/register", {
       path: "/register",
       title: "register",
-      user: req.user
+      user: req.user,
+      allUsers: allUsers.length,
+      onlineUser: allUsers.filter(user => user.isOnline === true).length
     });
   } catch (err) {
     res.redirect("/error")
@@ -31,12 +37,15 @@ exports.getRegister = (req, res) => {
   }
 };
 
-exports.getLogin = (req, res) => {
+exports.getLogin = async (req, res) => {
   try {
+    const allUsers = await User.find();
     res.status(200).render("auth/login", {
       path: "login",
       title: "login",
-      user: req.user
+      user: req.user,
+      allUsers: allUsers.length,
+      onlineUser: allUsers.filter(user => user.isOnline === true).length
     });
   } catch (err) {
     res.redirect("/error")

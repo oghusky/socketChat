@@ -1,4 +1,5 @@
 <form class="container" action="/login" method="POST" autocomplete="off">
+  <%-include('./is-online.ejs')-%>
   <h3 class="text-center">Login</h3>
   <div class="form-group">
     <input type="text" class="form-control" name="username" placeholder="User Name" autocomplete="username" required />

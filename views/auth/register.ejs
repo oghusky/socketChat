@@ -1,4 +1,5 @@
 <form class="container" action="/register" method="POST" enctype="multipart/form-data" autocomplete="off">
+  <%-include('./is-online.ejs')-%>
   <h3 class="text-center">Register</h3>
   <div class="form-group mt-3">
     <input type="text" class="form-control" name="username" placeholder="User Name" required />

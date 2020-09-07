@@ -7,51 +7,62 @@
     <div class="container-fluid">
       <%if(currentUser.photos.length >0 ){%>
       <img src="<%=currentUser.userimgname%>" alt="<%=currentUser.username%>" class="card-img-top">
+      <%if(currentUser.isOnline){%><div
+        style="height: 15px; width:15px; border-radius:50%; background-color: #5cb85c; border: 1px solid #f7f7f7; margin:0 auto;">
+      </div><%}%>
       <%}else{%>
       <img src="../images/avatar.png" alt="<%=currentUser.username%>" class="card-img-top">
+      <%if(currentUser.isOnline){%><div
+        style="height: 15px; width:15px; border-radius:50%; background-color: #5cb85c; border: 1px solid #f7f7f7; margin:0 auto;">
+      </div><%}%>
       <%}%>
     </div>
     <a href="/user/add_photo=<%= user.id %>" style="display:<%=(currentUser.id === user.id ? "inline":"none")%>">
       <i class="fas fa-camera"></i>
+    </a>
+  </div>
+  <main>
+    <div class="pre-info"></div>
+    <p class="text-center">
+      <small class="p-1"
+        style="background-color:rgba(0, 123, 255, 0.3); border-radius: 5px;"><%=currentUser.whichRoom.toUpperCase()%>
+        ROOM</small>
+    </p>
+    <p class="text-center mt-3">
+      <a href="/user/edit_info=<%= user.id %>" style="display:<%=(currentUser.id === user.id ? "inline":"none")%>">
+        <button class="btn edit-pro">Edit
+          Info</button>
       </a>
-    </div>
-    <main>
-      <div class="pre-info"></div>
-      <p class="text-center mt-3">
-        <a href="/user/edit_info=<%= user.id %>" style="display:<%=(currentUser.id === user.id ? "inline":"none")%>">
-          <button class="btn edit-pro">Edit
-            Info</button>
+      <a href="/gallery/<%= currentUser.id %>">
+        <button class="btn edit-pro">Gallery</button>
+      </a>
+    </p>
+    <div class="user-info">
+      <h2 class="user-name mb-0"><%= currentUser.username %></h2>
+      <p><%= currentUser.name %></p>
+      <p class="mb-0"><span><%=currentUser.gender%>,
+          <%=currentUser.orientation%></span></p>
+      <p class="my-0 py-0"><%=currentUser.city %>, <%= currentUser.state %></p>
+      <h3 class="user-links">
+        <%if(currentUser.instagram){%>
+        <a href="<%= currentUser.instagram%>">
+          <button class="btn mx-1"><i class="fab fa-instagram"></i></button>
         </a>
-        <a href="/gallery/<%= currentUser.id %>">
-          <button class="btn edit-pro">Gallery</button>
-        </a>
-      </p>
-      <div class="user-info">
-        <h2 class="user-name mb-0"><%= currentUser.username %></h2>
-        <p><%= currentUser.name %></p>
-        <p class="mb-0"><span><%=currentUser.gender%>,
-            <%=currentUser.orientation%></span></p>
-        <p class="my-0 py-0"><%=currentUser.city %>, <%= currentUser.state %></p>
-        <h3 class="user-links">
-          <%if(currentUser.instagram){%>
-          <a href="<%= currentUser.instagram%>">
-            <button class="btn mx-1"><i class="fab fa-instagram"></i></button>
-          </a>
-          <%}%>
+        <%}%>
           <%if(currentUser.facebook){%>
-          <a href="<%=currentUser.facebook%>">
-            <button class="btn mx-1"><i class="fab fa-facebook-f"></i></button>
-          </a>
-          <%}%>
+        <a href="<%=currentUser.facebook%>">
+          <button class="btn mx-1"><i class="fab fa-facebook-f"></i></button>
+        </a>
+        <%}%>
             <%if(currentUser.twitter){%>
-          <a href="<%=currentUser.twitter%>">
-            <button class="btn mx-1"><i class="fab fa-twitter"></i></button>
-          </a>
-          <%}%>
+        <a href="<%=currentUser.twitter%>">
+          <button class="btn mx-1"><i class="fab fa-twitter"></i></button>
+        </a>
+        <%}%>
             <%if(currentUser.snapchat){%>
-          <p class="text-center mt-3"><button class="btn mx-1 snap-button"><%=currentUser.snapchat%> <i
-                class="fab fa-snapchat-ghost fa-xs"></i></button></p>
-          <%}%>
+        <p class="text-center mt-3"><button class="btn mx-1 snap-button"><%=currentUser.snapchat%> <i
+              class="fab fa-snapchat-ghost fa-xs"></i></button></p>
+        <%}%>
         </h3>
         <div class="user-bio pb-5">
         </div>

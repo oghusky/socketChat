@@ -12,7 +12,13 @@
           <%}%>
       </div>
         <div class="card-body">
-          <h5 class="card-title"><%=user.username.toUpperCase()%> <%=user.gender%></h5>
+          <h5 class="card-title"> 
+            <%if(user.isOnline){%>
+          <div
+            style="height: 15px !important; width:15px !important; border-radius:50%; background-color: #5cb85c; border: 1px solid #f7f7f7; margin:0 auto; display:inline-block">
+          </div>
+          <%}%>
+           <%=user.username.toUpperCase()%> <%=user.gender%></h5>
           <p class="card-text"><%=user.state%></p>
         </div>
       </div>

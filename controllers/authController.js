@@ -11,11 +11,13 @@ exports.getIndex = async (req, res) => {
       path: "/welcome",
       title: "welcome",
       user: req.user,
+      registered: allUsers,
       allUsers: allUsers.length,
       onlineUsers: allUsers.filter(user => user.isOnline == "true").length
     });
 
   } catch (err) {
+    console.log(err);
     res.redirect("/error")
     req.flash("error", "Uh Oh Something went wrong");
   }

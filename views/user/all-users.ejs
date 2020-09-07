@@ -1,6 +1,8 @@
-<h3 class="text-center">Newest Users</h3>
+<%if(allUsers.filter(user=>user.isOnline).length > 0){%>
+<h3 class="text-center">Users Online</h3>
 <div class="row allusers-row no-gutters pb-5">
-  <%allUsers.reverse().slice(0,40).map(user=>{%>
+  <%allUsers.reverse().slice(0,10).forEach(user=>{%>
+  <%if(user.isOnline){%>
   <div class="col-lg-3 col-sm-6 my-1 px-1 user-card-div">
     <a href="/user/<%=user._id%>" class="user-card">
       <div class="card allusers-card">
@@ -10,19 +12,49 @@
           <%}else{%>
           <img src="../images/avatar.png" alt="<%=user.username%>" class="card-img-top">
           <%}%>
-      </div>
-        <div class="card-body">
-          <h5 class="card-title"> 
-            <%if(user.isOnline){%>
+        </div>
+      <div class="card-body">
+        <h5 class="card-title"> 
+          <%if(user.isOnline){%>
           <div
             style="height: 15px !important; width:15px !important; border-radius:50%; background-color: #5cb85c; border: 1px solid #f7f7f7; margin:0 auto; display:inline-block">
           </div>
           <%}%>
-           <%=user.username.toUpperCase()%> <%=user.gender%></h5>
+          <%=user.username.toUpperCase()%> <%=user.gender%></h5>
           <p class="card-text"><%=user.state%></p>
         </div>
       </div>
     </a>
   </div>
+  <%}%>
   <%})%>
+</div>
+<%}%>
+<h3 class="text-center">Newest Users</h3>
+<div class="row allusers-row no-gutters pb-5">
+  <%allUsers.reverse().slice(0,8).map(user=>{%>
+<div class="col-lg-3 col-sm-6 my-1 px-1 user-card-div">
+  <a href="/user/<%=user._id%>" class="user-card">
+    <div class="card allusers-card">
+      <div class="img-div">
+        <%if(user.photos.length>0){%>
+        <img src="<%=user.userimgname%>" alt="<%=user.username%>" class="img-fluid">
+        <%}else{%>
+        <img src="../images/avatar.png" alt="<%=user.username%>" class="card-img-top">
+        <%}%>
+      </div>
+        <div class="card-body">
+          <h5 class="card-title"> 
+            <%if(user.isOnline){%>
+        <div
+          style="height: 15px !important; width:15px !important; border-radius:50%; background-color: #5cb85c; border: 1px solid #f7f7f7; margin:0 auto; display:inline-block">
+        </div>
+        <%}%>
+           <%=user.username.toUpperCase()%> <%=user.gender%></h5>
+        <p class="card-text"><%=user.state%></p>
+      </div>
+    </div>
+  </a>
+</div>
+<%})%>
 </div>

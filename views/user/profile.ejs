@@ -23,19 +23,21 @@
   </div>
   <main>
     <div class="pre-info"></div>
+    <%if(currentUser.whichRoom){%>
     <p class="text-center">
       <small class="p-1"
         style="background-color:rgba(0, 123, 255, 0.3); border-radius: 5px;"><%=currentUser.whichRoom.toUpperCase()%>
         ROOM</small>
     </p>
+    <%}%>
     <p class="text-center mt-3">
       <a href="/user/edit_info=<%= user.id %>" style="display:<%=(currentUser.id === user.id ? "inline":"none")%>">
-        <button class="btn edit-pro">Edit
-          Info</button>
-      </a>
-      <a href="/gallery/<%= currentUser.id %>">
-        <button class="btn edit-pro">Gallery</button>
-      </a>
+    <button class="btn edit-pro">Edit
+      Info</button>
+    </a>
+    <a href="/gallery/<%= currentUser.id %>">
+      <button class="btn edit-pro">Gallery</button>
+    </a>
     </p>
     <div class="user-info">
       <h2 class="user-name mb-0"><%= currentUser.username %></h2>

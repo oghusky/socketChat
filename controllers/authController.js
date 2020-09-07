@@ -114,7 +114,11 @@ exports.postLogin = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.getLogout = (req, res) => {
+exports.getLogout = async (req, res) => {
+  const user = await User.findById(req.user.id);
+  user.isOnline = false;
+  user.whichRoom = "";
+  user.save();
   req.logout();
   res.redirect("/login");
 };

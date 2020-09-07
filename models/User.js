@@ -55,6 +55,13 @@ const userSchema = new mongoose.Schema({
     data: Buffer,
     type: String,
   },
+  isOnline: {
+    type: Boolean,
+    default: false
+  },
+  whichRoom: {
+    type: String
+  },
   instagram: {
     type: String,
     trim: true,

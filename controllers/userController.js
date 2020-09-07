@@ -14,6 +14,9 @@ const rmDeletedUserImg = async (img) => {
 exports.getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find();
+    const loggedUser = await User.findById(req.user.id);
+    loggedUser.isOnline = true;
+    loggedUser.save();
     res.status(200).render("user/all-users", {
       path: "/all_users",
       title: "All Users",

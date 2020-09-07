@@ -1,3 +1,4 @@
+const User = require('../models/User');
 // array of room names
 const chatRooms = [
   "business owners",
@@ -20,10 +21,13 @@ const chatRooms = [
   "50's",
 ]
 
-exports.getRoomNames = (req, res) => {
+exports.getRoomNames = async (req, res) => {
   try {
+    const user = await User.findById(req.user.id.toString());
     let users = [];
     let roomName = req.params.roomName;
+    user.whichRoom = roomName;
+    user.save();
     users.push(req.user);
     if (chatRooms.includes(roomName.toLowerCase())) {
       res.render("user/chat", {
@@ -38,8 +42,11 @@ exports.getRoomNames = (req, res) => {
     res.redirect("/error")
   }
 };
-exports.getChosenChat = (req, res) => {
+exports.getChosenChat = async (req, res) => {
   try {
+    const user = await User.findById(req.user.id.toString());
+    user.whichRoom = "";
+    user.save();
     req.headers["chat-user"] = `${req.user}`;
     res.status(200).render("user/chooseChat", {
       chatRooms,

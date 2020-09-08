@@ -1,3 +1,11 @@
+// register service worker
+(function () {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register('../service-worker.js', { scope: '/' })
+      .then(() => console.log("Service Worker registered successfully."))
+      .catch(error => console.log("Service Worker registration failed:"));
+  }
+})()
 // make socket connection in browser
 const pathname = window.location.pathname;
 const splitPath = pathname.split("/");
@@ -6,7 +14,6 @@ if (window.location.pathname === "/" && localStorage.getItem("Blurb_be") === "sh
 }
 // ==============================checking for register path
 if (splitPath.includes("register")) {
-  console.log(pathname);
   // when submit button is clicked
   const password = document.querySelector("input[name='password']");
   const passwordTwo = document.querySelector("input[name='password2']");
@@ -182,7 +189,6 @@ if (splitPath.includes("chat")) {
         const fromUserImg = userImg;
         const toUser = message.split(" ")[1];
         const newMessage = message.split(`${toUser}`)[1]
-        console.log("userimg", userImg);
         socket.emit("private-message", roomName, newMessage, fromUser, fromUserImg, toUser.toUpperCase());
       } else {
         socket.emit("message", roomName, message, userName, userImg, currentUser.innerText);

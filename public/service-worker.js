@@ -1,8 +1,13 @@
 const FILES_TO_CACHE = [
   '/',
-  '../../views/layout.ejs',
-  '../../views/partials/navbar.ejs',
-  '../../views/partials/footer.ejs',
+  '/login',
+  '/register',
+  '../views/layout.ejs',
+  '../views/auth/welcome.ejs',
+  '../views/auth/login.ejs',
+  '../views/auth/register.ejs',
+  '../views/partials/navbar.ejs',
+  '../views/partials/footer.ejs',
   './build/app.bundle.js',
   './css/main.css',
   './html/cookie-policy.html',
@@ -41,8 +46,8 @@ self.addEventListener("activate", evt => {
   );
   self.clients.claim();
 });
-
+const fetchEvents = []
 //fetch
 self.addEventListener("fetch", evt => {
-  console.log("FETCH EVENT:", evt);
+  console.log(evt)
 });

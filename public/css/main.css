@@ -99,7 +99,7 @@ div.allusers-card div.img-div img.img-fluid{
   margin: 0 auto;
 }
 div.allusers-row div.user-card-div div.img-div{
-    max-height: 38d0px;
+  height: 200px;
   }
 /* end all users */
 /* choose chat */
